@@ -224,9 +224,9 @@ a {
 .hero-features {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
   gap: 10px;
   margin: 0 0 28px;
-  align-items: start;
 }
 
 .hero-feature {
