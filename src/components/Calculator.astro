@@ -1,0 +1,141 @@
+---
+---
+
+<section class="section calc-section" id="calculator">
+  <div class="container">
+    <h2>Рассчитайте стоимость обслуживания</h2>
+    <p class="section-intro">Укажите параметры — получите ориентировочную стоимость за несколько секунд</p>
+
+    <div class="calc-body reveal">
+      <div class="calc-left">
+        <div class="calc-row">
+          <div class="calc-row-info">
+            <div class="calc-row-title">Рабочие места</div>
+            <div class="calc-row-price">800 руб. / месяц</div>
+          </div>
+          <div class="calc-counter">
+            <button class="calc-btn-minus" data-target="seats" aria-label="Уменьшить">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="calc-counter-value" id="seats">10</span>
+            <button class="calc-btn-plus" data-target="seats" aria-label="Увеличить">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-info">
+            <div class="calc-row-title">Физические серверы</div>
+            <div class="calc-row-price">3 000 руб. / месяц</div>
+          </div>
+          <div class="calc-counter">
+            <button class="calc-btn-minus" data-target="phys-servers" aria-label="Уменьшить">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="calc-counter-value" id="phys-servers">3</span>
+            <button class="calc-btn-plus" data-target="phys-servers" aria-label="Увеличить">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-info">
+            <div class="calc-row-title">Виртуальные серверы</div>
+            <div class="calc-row-price">1 500 руб. / месяц</div>
+          </div>
+          <div class="calc-counter">
+            <button class="calc-btn-minus" data-target="virt-servers" aria-label="Уменьшить">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="calc-counter-value" id="virt-servers">4</span>
+            <button class="calc-btn-plus" data-target="virt-servers" aria-label="Увеличить">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-info">
+            <div class="calc-row-title">Сетевое оборудование</div>
+            <div class="calc-row-price">500 руб. / месяц</div>
+          </div>
+          <div class="calc-counter">
+            <button class="calc-btn-minus" data-target="network" aria-label="Уменьшить">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="calc-counter-value" id="network">6</span>
+            <button class="calc-btn-plus" data-target="network" aria-label="Увеличить">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-right">
+        <div class="calc-result">
+          <div class="calc-result-label">Итого:</div>
+          <div class="calc-result-value" id="calc-price">20 000</div>
+          <div class="calc-result-period">руб./месяц</div>
+          <a class="btn" href="#contacts">Заказать услуги</a>
+          <div class="calc-result-note">Стоимость указана без НДС</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const items: { id: string; price: number; min: number }[] = [
+    { id: 'seats', price: 800, min: 1 },
+    { id: 'phys-servers', price: 3000, min: 0 },
+    { id: 'virt-servers', price: 1500, min: 0 },
+    { id: 'network', price: 500, min: 0 },
+  ];
+
+  const priceEl = document.getElementById('calc-price');
+
+  function getVal(id: string): number {
+    const el = document.getElementById(id);
+    return el ? parseInt(el.textContent || '0') : 0;
+  }
+
+  function setVal(id: string, val: number) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = String(val);
+  }
+
+  function updateTotal() {
+    let total = 0;
+    for (const item of items) {
+      total += getVal(item.id) * item.price;
+    }
+    if (priceEl) priceEl.textContent = total.toLocaleString('ru-RU');
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.calc-btn-minus').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      if (!target) return;
+      const item = items.find(i => i.id === target);
+      const current = getVal(target);
+      if (item && current > item.min) {
+        setVal(target, current - 1);
+        updateTotal();
+      }
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.calc-btn-plus').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      if (!target) return;
+      const current = getVal(target);
+      setVal(target, current + 1);
+      updateTotal();
+    });
+  });
+
+  updateTotal();
+</script>

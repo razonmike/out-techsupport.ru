@@ -1,0 +1,82 @@
+---
+import TrendUp from 'phosphor-astro/TrendUp.astro';
+import ShieldCheck from 'phosphor-astro/ShieldCheck.astro';
+import Lightning from 'phosphor-astro/Lightning.astro';
+import Cpu from 'phosphor-astro/Cpu.astro';
+import ArrowRight from 'phosphor-astro/ArrowRight.astro';
+---
+
+<section class="hero section-with-bg">
+  <div class="container hero-grid">
+    <div class="hero-left reveal">
+      <h1 class="hero-title">
+        <span class="hero-title-main">Внешний IT-отдел</span>
+        <span class="hero-title-accent">для вашего бизнеса</span>
+      </h1>
+      <p class="hero-lead">
+        Обслуживаем IT-инфраструктуру компании – от рабочих мест до серверов.
+      </p>
+      <div class="hero-features">
+        <div class="hero-feature">
+          <TrendUp class="hero-feature-icon" width={20} height={20} />
+          <div class="hero-feature-text">
+            <span class="hero-feature-label">Выгодно</span>
+            <span class="hero-feature-desc">Сокращаем расходы на IT до 50%</span>
+          </div>
+        </div>
+        <div class="hero-feature">
+          <ShieldCheck class="hero-feature-icon" width={20} height={20} />
+          <div class="hero-feature-text">
+            <span class="hero-feature-label">Надёжно</span>
+            <span class="hero-feature-desc">Следим за сохранностью ваших данных</span>
+          </div>
+        </div>
+        <div class="hero-feature">
+          <Lightning class="hero-feature-icon" width={20} height={20} />
+          <div class="hero-feature-text">
+            <span class="hero-feature-label">Быстро</span>
+            <span class="hero-feature-desc">Время реакции от 15 минут</span>
+          </div>
+        </div>
+        <div class="hero-feature">
+          <Cpu class="hero-feature-icon" width={20} height={20} />
+          <div class="hero-feature-text">
+            <span class="hero-feature-label">Профессионально</span>
+            <span class="hero-feature-desc">Комплексное обслуживание всей инфраструктуры</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contacts">Бесплатный IT-аудит <ArrowRight width={18} height={18} /></a>
+        <a class="btn btn-secondary" href="#prices">Посмотреть тарифы</a>
+      </div>
+    </div>
+    <div class="hero-right reveal">
+      <h2 class="hero-block-title">Коротко о компании</h2>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>С 2014 года</strong>
+          <span>На рынке IT-аутсорсинга</span>
+        </div>
+        <div class="hero-stat">
+          <strong>25+</strong>
+          <span>Компаний на абонентском обслуживании</span>
+        </div>
+        <div class="hero-stat">
+          <strong>1000+</strong>
+          <span>Реализованных проектов</span>
+        </div>
+        <div class="hero-stat">
+          <strong>10+</strong>
+          <span>Отраслей для которых работаем</span>
+        </div>
+        <div class="hero-stat hero-stat-promo">
+          <div class="hero-stat-promo-left">
+            <span>Первый месяц со скидкой 20%</span>
+          </div>
+          <strong class="hero-stat-promo-value">−20%</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

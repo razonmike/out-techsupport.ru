@@ -1,0 +1,92 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'TechSupport | IT-аутсорсинг для бизнеса',
+  description = 'IT-аутсорсинг для бизнеса: Wi-Fi, CCTV, 1C, виртуализация, системное администрирование.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content={description}>
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <img class="brand-icon" src="/assets/images/logo-icon.svg" alt="TechSupport logo">
+        <span class="brand-copy">
+          <span class="brand-text">TechSupport<span class="brand-cursor">_</span></span>
+          <span class="brand-subtext">IT аутсорсинг вашего бизнеса</span>
+        </span>
+      </a>
+      <nav class="menu">
+        <a href="#services">Услуги</a>
+        <a href="#cases">Кейсы</a>
+        <a href="#prices">Тарифы</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="btn btn-small" href="#contacts">Оставить заявку</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <slot />
+  </main>
+
+  <footer class="site-footer section-with-bg">
+    <div class="container footer-inner">
+      <a class="brand" href="#top">
+        <img class="brand-icon" src="/assets/images/logo-icon.svg" alt="TechSupport logo">
+        <span class="brand-copy">
+          <span class="brand-text">TechSupport<span class="brand-cursor">_</span></span>
+          <span class="brand-subtext">IT аутсорсинг вашего бизнеса</span>
+        </span>
+      </a>
+      <div class="footer-contacts">
+        <a href="tel:+79669990291">+7 (966) 999-02-91</a>
+        <a href="mailto:support@out-techsupport.ru">support@out-techsupport.ru</a>
+        <a href="https://out-techsupport.ru" target="_blank" rel="noreferrer">out-techsupport.ru</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var revealItems = document.querySelectorAll(".reveal");
+      if (!revealItems.length) return;
+      if (!("IntersectionObserver" in window)) {
+        revealItems.forEach(function (item) { item.classList.add("is-visible"); });
+        return;
+      }
+      var observer = new IntersectionObserver(
+        function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }
+      );
+      revealItems.forEach(function (item, index) {
+        item.style.transitionDelay = Math.min(index * 40, 280) + "ms";
+        observer.observe(item);
+      });
+    })();
+  </script>
+</body>
+</html>
