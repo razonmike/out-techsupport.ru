@@ -1,0 +1,99 @@
+---
+import WifiHigh from 'phosphor-astro/WifiHigh.astro';
+import Database from 'phosphor-astro/Database.astro';
+import Printer from 'phosphor-astro/Printer.astro';
+import LockKey from 'phosphor-astro/LockKey.astro';
+import Network from 'phosphor-astro/Network.astro';
+import HardDrives from 'phosphor-astro/HardDrives.astro';
+import VideoCamera from 'phosphor-astro/VideoCamera.astro';
+import Handshake from 'phosphor-astro/Handshake.astro';
+
+const points = [
+  {
+    icon: WifiHigh,
+    title: 'Нестабильный Wi-Fi и интернет',
+    desc: 'Сотрудники теряют время на обрывах, клиенты уходят из-за медленной сети.',
+  },
+  {
+    icon: Database,
+    title: 'Проблемы с 1С',
+    desc: 'База тормозит или падает, отчёты и продажи встают.',
+  },
+  {
+    icon: Printer,
+    title: 'Сбои рабочих мест и принтеров',
+    desc: 'Каждый день кто-то не может распечатать, войти в систему, открыть файл.',
+  },
+  {
+    icon: LockKey,
+    title: 'Нет нормального VPN',
+    desc: 'Удалённые сотрудники и филиалы не могут стабильно работать с общими ресурсами.',
+  },
+  {
+    icon: Network,
+    title: 'Нет порядка в локальной сети',
+    desc: 'Никто не знает, что куда подключено и за что отвечает. При сбое — долгий поиск причины.',
+  },
+  {
+    icon: HardDrives,
+    title: 'Нет резервного копирования',
+    desc: 'Риск потерять базы, договоры и рабочие файлы при отказе оборудования или ошибке сотрудника.',
+  },
+  {
+    icon: VideoCamera,
+    title: 'Нужно видеонаблюдение',
+    desc: 'Нет контроля за объектом, складом или офисом. Инциденты нечем подтвердить.',
+  },
+  {
+    icon: Handshake,
+    title: 'Нужен постоянный IT-подрядчик',
+    desc: 'IT-задачи закрываются хаотично, разными людьми, без единой зоны ответственности.',
+  },
+];
+---
+
+<section class="section section-with-bg pain-points">
+  <div class="container">
+    <h2>С какими задачами к нам обращаются</h2>
+    <p class="section-intro reveal">
+      Типовые ситуации, с которых чаще всего начинается работа с нами. Разберём вашу
+      — и предложим формат поддержки.
+    </p>
+    <div class="cards cards-4">
+      {points.map((point) => (
+        <article class="card pain-card reveal">
+          <point.icon class="pain-icon" width={28} height={28} />
+          <h3>{point.title}</h3>
+          <p>{point.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pain-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pain-card :global(.pain-icon) {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .pain-card h3 {
+    font-size: 1.05rem;
+    line-height: 1.25;
+    margin: 0;
+    color: #fff;
+  }
+
+  .pain-card p {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    margin: 0;
+    color: var(--muted);
+  }
+</style>
