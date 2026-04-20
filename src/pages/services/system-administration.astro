@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceHero from '../../components/service/ServiceHero.astro';
+import Included from '../../components/service/Included.astro';
+import ForWhom from '../../components/service/ForWhom.astro';
+import Process from '../../components/service/Process.astro';
+import FAQ from '../../components/service/FAQ.astro';
+import FinalCTA from '../../components/service/FinalCTA.astro';
+import RelatedServices from '../../components/service/RelatedServices.astro';
+import Contacts from '../../components/Contacts.astro';
+
+import ShieldCheck from 'phosphor-astro/ShieldCheck.astro';
+import UserGear from 'phosphor-astro/UserGear.astro';
+import Desktop from 'phosphor-astro/Desktop.astro';
+import Network from 'phosphor-astro/Network.astro';
+import HardDrives from 'phosphor-astro/HardDrives.astro';
+import ShieldWarning from 'phosphor-astro/ShieldWarning.astro';
+import Lightning from 'phosphor-astro/Lightning.astro';
+import ChartLine from 'phosphor-astro/ChartLine.astro';
+
+const title = 'Системное администрирование: Windows, Linux, AD, мониторинг | TechSupport';
+const description = 'Полное сопровождение серверной инфраструктуры: Windows Server, Linux, Active Directory, Zabbix, бэкапы, безопасность. Внешний сисадмин или усиление штатного.';
+---
+
+<Layout title={title} description={description}>
+  <ServiceHero
+    kicker="Системное администрирование"
+    title="Инфраструктура, которая работает без ручной поддержки"
+    lead="Windows Server, Linux, Active Directory, мониторинг, бэкапы, обновления — полное сопровождение серверной инфраструктуры. Заранее предотвращаем сбои, а не разбираемся с последствиями. Подходит компаниям без штатного сисадмина или в дополнение к нему."
+    features={[
+      { icon: ShieldCheck, label: 'Мониторинг 24/7', desc: 'Серверы, диски, сервисы под наблюдением, аварии видим до пользователей.' },
+      { icon: UserGear, label: 'Active Directory и доступы', desc: 'Управление учётками, GPO, разграничение прав по ролям.' },
+      { icon: HardDrives, label: 'Бэкапы под контролем', desc: 'Регулярные проверки работоспособности и тестовые восстановления.' },
+      { icon: Lightning, label: 'Быстрая реакция', desc: 'Реакция от 15 минут в рабочее время, круглосуточная на расширенных SLA.' },
+    ]}
+  />
+
+  <Included
+    heading="Что входит"
+    intro="Берём на себя всю серверную сторону инфраструктуры — от пользовательских учёток до отчётности по SLA."
+    items={[
+      { icon: UserGear, title: 'Windows Server и Active Directory', desc: 'Развёртывание, обслуживание, миграция между версиями, работа с GPO.' },
+      { icon: Desktop, title: 'Linux-серверы', desc: 'Debian, Ubuntu, RHEL — настройка, автоматизация через Ansible, мониторинг.' },
+      { icon: ShieldCheck, title: 'Безопасность', desc: 'Патчи, антивирус, политики, защита от шифровальщиков, аудит прав доступа.' },
+      { icon: Network, title: 'Мониторинг инфраструктуры', desc: 'Zabbix или Prometheus — серверы, сеть, сервисы, SLA-отчёты.' },
+      { icon: HardDrives, title: 'Резервное копирование', desc: 'Veeam, Bacula, PBS — многоуровневое резервирование и проверка восстановимости.' },
+      { icon: ShieldWarning, title: 'Реагирование на инциденты', desc: 'Регламент реакции, восстановление после сбоев, разбор root-cause с отчётом.' },
+    ]}
+  />
+
+  <ForWhom
+    heading="Кому подходит"
+    intro="Работаем и как полная замена штатного сисадмина, и как вторая линия в усиление текущей команды."
+    scenarios={[
+      { title: 'Компаниям без штатного сисадмина', desc: 'Вся серверная инфраструктура — на нас. Внешний сисадмин за меньшие деньги, чем штатный, и без перерывов на отпуск.' },
+      { title: 'Тем, у кого уволился сисадмин', desc: 'Экстренная инвентаризация инфраструктуры, передача дел, восстановление доступов, дальнейшее сопровождение.' },
+      { title: 'Компаниям в усиление штатного сисадмина', desc: 'Берём на себя то, что один человек физически не тянет: безопасность, бэкапы, выходные, отпуска.' },
+      { title: 'Тем, у кого устаревшая инфраструктура', desc: 'Миграция с Windows Server 2008/2012, переход на современный AD, обновление серверного парка.' },
+    ]}
+  />
+
+  <Process
+    intro="Первый результат и закрытые точки отказа — обычно в первые 2 недели."
+    steps={[
+      { title: 'Аудит и инвентаризация', desc: 'Список серверов, сервисов, учёток, лицензий, пробелов в безопасности и точек отказа.' },
+      { title: 'Приоритизация', desc: 'План работ по степени критичности: сначала бэкапы и безопасность, потом оптимизация.' },
+      { title: 'Внедрение', desc: 'Мониторинг, обновления, безопасность, документация инфраструктуры.' },
+      { title: 'Сопровождение', desc: 'Постоянное наблюдение, ежемесячная отчётность, превентивное обслуживание.' },
+    ]}
+  />
+
+  <FAQ
+    items={[
+      { q: 'Чем отличается сисадмин-аутсорс от своего сотрудника?', a: 'Команда инженеров с разной специализацией вместо одного человека. Не берёт больничные и отпуска. Предсказуемая стоимость в договоре. Единый процесс вместо «у нас всё в голове у Коли».' },
+      { q: 'Работаете с Windows Server 2008/2012?', a: 'Да, но рекомендуем миграцию — эти версии не получают обновлений безопасности. Планово переводим на 2019/2022 или на Linux в зависимости от задач.' },
+      { q: 'Чем мониторите серверы?', a: 'Zabbix или Prometheus + Grafana, в зависимости от стека. Метрики CPU, RAM, дисков, сервисов, бэкапов. Алерты в Telegram и по email — 24/7, даже в выходные.' },
+      { q: 'Что, если уволился наш сисадмин и мы не знаем, что у нас есть?', a: 'Первый шаг — экстренный аудит: сканирование сети, инвентаризация серверов, восстановление доступов через существующие учётки или физический перезапуск. Обычно за 1–3 дня получаем полную картину.' },
+      { q: 'Как с переходом с Windows на Linux?', a: 'Реалистично. Часть сервисов (файл-сервер, сервер 1С, веб, почта) мигрируем на Linux и экономим на лицензиях. Что-то оставляем на Windows, где нет альтернатив. После аудита предложим дорожную карту.' },
+      { q: 'Готовите документацию инфраструктуры?', a: 'Да. Все настройки, пароли, схемы сети — в репозитории (Git или вики), с историей изменений. Клиент получает полный доступ. Никаких секретов «только у нас в голове».' },
+    ]}
+  />
+
+  <FinalCTA
+    heading="Передайте системное администрирование команде"
+    text="Проведём аудит серверной инфраструктуры, найдём пробелы в безопасности и предложим план работ. Без обязательств."
+    primary={{ label: 'Получить бесплатный аудит', href: '#contacts' }}
+    secondary={{ label: 'Посмотреть тарифы', href: '/#prices' }}
+  />
+
+  <Contacts />
+
+  <RelatedServices currentSlug="system-administration" />
+</Layout>
