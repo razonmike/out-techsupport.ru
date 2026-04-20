@@ -146,3 +146,69 @@
 - форму
 - мобильное меню
 - footer
+
+---
+
+## Миграция на Astro (коммит 58a7ddf, ветка codex/refactor-homepage)
+
+### Что изменилось в стеке
+- Проект целиком переписан с vanilla HTML/CSS/JS на **Astro 5 + React 19 + Tailwind 4 + phosphor-astro**
+- Главная разложена по компонентам в [src/components/](../src/components/): Hero, Services, Trust, HowWeWork, Cases, Prices, Calculator, Contacts
+- Стили централизованы в [src/styles/global.css](../src/styles/global.css), имена классов сохранены
+- Шрифты заменены с Inter/Montserrat/Unbounded на **Geist + Space Mono** (см. [src/layouts/Layout.astro](../src/layouts/Layout.astro))
+- Удалены legacy-assets и figma-исходники (коммиты `a86daf1`, `cce885c`)
+- Добавлен продакшн-деплой: [Dockerfile](../Dockerfile) (Node 20 build → nginx serve), [nginx.conf](../nginx.conf)
+
+### Инфраструктура деплоя
+- Репозиторий: `git@github.com:razonmike/out-techsupport.ru.git`, ветка `codex/refactor-homepage`
+- Хостинг: LXC 110 `web-site` (172.16.30.99) на Proxmox Hilbert (185.184.79.158)
+- Reverse proxy: LXC 104 `proxy` (172.16.30.246)
+- Домен: out-techsupport.ru
+- CI/CD: пока ручной
+
+### Регрессии, которые появились при миграции
+Тексты в компонентах восстановлены из более старых версий и потеряли правки Stage 1/2:
+- **Hero** ([src/components/Hero.astro](../src/components/Hero.astro)): вернулись «сокращаем расходы до 50%», «время реакции от 15 минут», карточки «25+ компаний / 1000+ проектов / 10+ отраслей», промо «−20% первый месяц» — всё то, что в Stage 1 было согласованно удалено
+- **Services** ([src/components/Services.astro](../src/components/Services.astro)): возврат к техническим формулировкам «CCTV и видеонаблюдение», «Виртуализация / Hyper-V, VMware, Proxmox», «Системное администрирование» — Stage 2 переупаковка в язык бизнеса утеряна
+- **Trust** ([src/components/Trust.astro](../src/components/Trust.astro)): вернулись клише, явно запрещённые в [AGENTS.md](../AGENTS.md): «Профессиональная команда», «Безопасность данных»
+- **Meta description** ([src/layouts/Layout.astro:11](../src/layouts/Layout.astro#L11)): откат к «Wi-Fi, CCTV, 1C, виртуализация, системное администрирование»
+- **Блок болей** «С какими задачами к нам обращаются» из Stage 2 — не перенесён в Astro, в [src/pages/index.astro](../src/pages/index.astro) его нет
+
+### Что не реализовано (согласно [docs/SITE_PLAN.md](SITE_PLAN.md))
+| # | Секция | Статус |
+|---|---|---|
+| 2 | С какими задачами к нам обращаются (боли) | **отсутствует** (был в Stage 2, пропал при миграции) |
+| 3 | Что входит во внешний IT-отдел (бизнес-формулировки) | **регрессия** — нужна повторная переупаковка Services |
+| 4 | Как мы работаем | есть, [HowWeWork.astro](../src/components/HowWeWork.astro) |
+| 5 | Абонентское IT-обслуживание (акцент на регулярку) | **нет отдельного блока** |
+| 6 | С чего часто начинается работа (входные услуги) | **нет** |
+| 7 | Кейсы | есть, [Cases.astro](../src/components/Cases.astro), 3 примера |
+| 8 | Тарифы | **перегружены** разбивкой по ПК/серверам/МФУ/Wi-Fi; нужен упрощённый формат на главной |
+| 9 | Финальный CTA | **отсутствует** как отдельный блок — Contacts работает и как секция контактов, и как CTA |
+| — | Форма заявки | **не отправляет данные**: `type="button"` без обработчика в [Contacts.astro:23](../src/components/Contacts.astro#L23) |
+| — | Мобильная навигация | **не проверена**, бургер-меню не добавлен |
+| — | Калькулятор стоимости | есть, [Calculator.astro](../src/components/Calculator.astro), работает |
+
+### Приоритетный backlog
+
+**P1 — вернуть позиционирование и ключевые запрещённые формулировки:**
+1. Починить [Hero.astro](../src/components/Hero.astro): убрать «до 50%», «время реакции от 15 минут» до согласования цифр, заменить карточки статистики на Stage-1-вариант
+2. Переписать [Services.astro](../src/components/Services.astro) и [Trust.astro](../src/components/Trust.astro) по Stage 2 (язык бизнеса, без клише)
+3. Поправить `meta description` и `title` в [Layout.astro](../src/layouts/Layout.astro)
+4. Вернуть блок болей «С какими задачами к нам обращаются» после Hero — создать новый компонент `PainPoints.astro` и подключить в [index.astro](../src/pages/index.astro)
+
+**P1 — форма:**
+5. Подключить отправку формы в Contacts (минимум — API-endpoint или интеграция с Telegram ботом / email)
+
+**P2 — недостающие секции:**
+6. Добавить блок «Абонентское IT-обслуживание» (п.5 плана)
+7. Добавить блок «С чего часто начинается работа» (п.6 плана)
+8. Выделить финальный CTA как отдельный блок перед Contacts или в футер
+9. Упростить Prices на главной: 3 карточки × 3–4 пункта × стартовая цена; детали — в калькулятор и на страницу тарифов
+
+**P2 — навигация:**
+10. Добавить бургер-меню для экранов <980px в [Layout.astro](../src/layouts/Layout.astro)
+
+**P3 — полировка:**
+11. Проверить адаптив всех секций на 320 / 768 / 1280
+12. Настроить автоматизацию деплоя на LXC 110 (GitHub Actions → SSH/registry pull)
