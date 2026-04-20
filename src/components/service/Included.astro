@@ -1,0 +1,47 @@
+---
+interface Item {
+  icon?: any;
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  heading?: string;
+  intro?: string;
+  items: Item[];
+}
+
+const { heading = 'Что входит', intro, items } = Astro.props;
+---
+
+<section class="section section-with-bg">
+  <div class="container">
+    <h2>{heading}</h2>
+    {intro && <p class="section-intro reveal">{intro}</p>}
+    <div class="cards cards-3">
+      {items.map((item) => (
+        <article class="card included-card reveal">
+          {item.icon && <item.icon class="included-icon" width={26} height={26} />}
+          <h3>{item.title}</h3>
+          <p>{item.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .included-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .included-card :global(.included-icon) {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .included-card h3 {
+    font-size: 1.08rem;
+    margin: 0;
+  }
+</style>

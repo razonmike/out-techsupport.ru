@@ -1,4 +1,38 @@
 ---
+import ArrowRight from 'phosphor-astro/ArrowRight.astro';
+
+const services = [
+  {
+    href: '/services/it-outsourcing',
+    title: 'IT-аутсорсинг',
+    desc: 'Снижаем нагрузку на команду: обслуживаем рабочие места, серверы и сеть в режиме одного окна.',
+  },
+  {
+    href: '/services/wifi',
+    title: 'Организация Wi-Fi',
+    desc: 'Проектируем стабильный корпоративный Wi-Fi без «мёртвых зон» и обрывов связи.',
+  },
+  {
+    href: '/services/video-surveillance',
+    title: 'Видеонаблюдение и СКД',
+    desc: 'Ставим и сопровождаем видеонаблюдение и контроль доступа для безопасности объектов.',
+  },
+  {
+    href: '/services/1c',
+    title: 'Поддержка 1С',
+    desc: 'Обеспечиваем бесперебойную работу 1С: от развёртывания до оптимизации и бэкапов.',
+  },
+  {
+    href: '/services/virtualization',
+    title: 'Виртуализация',
+    desc: 'Сокращаем затраты на инфраструктуру через Hyper-V, VMware, Proxmox и грамотные миграции.',
+  },
+  {
+    href: '/services/system-administration',
+    title: 'Системное администрирование',
+    desc: 'Предотвращаем сбои заранее: мониторинг, обновления, безопасность и быстрое устранение инцидентов.',
+  },
+];
 ---
 
 <section id="services" class="section section-with-bg">
@@ -9,30 +43,38 @@
       без найма большого внутреннего IT-штата.
     </p>
     <div class="cards cards-3">
-      <article class="card reveal">
-        <h3>IT-аутсорсинг</h3>
-        <p>Снижаем нагрузку на команду: обслуживаем рабочие места, серверы и сеть в режиме одного окна.</p>
-      </article>
-      <article class="card reveal">
-        <h3>Организация Wi-Fi</h3>
-        <p>Проектируем стабильный корпоративный Wi-Fi без "мертвых зон" и обрывов связи.</p>
-      </article>
-      <article class="card reveal">
-        <h3>CCTV и видеонаблюдение</h3>
-        <p>Внедряем CCTV и контроль доступа для безопасности объектов и прозрачного контроля процессов.</p>
-      </article>
-      <article class="card reveal">
-        <h3>Поддержка 1C</h3>
-        <p>Обеспечиваем бесперебойную работу 1C: от развертывания до оптимизации и резервного копирования.</p>
-      </article>
-      <article class="card reveal">
-        <h3>Виртуализация</h3>
-        <p>Сокращаем затраты на инфраструктуру через Hyper-V, VMware, Proxmox и грамотные миграции.</p>
-      </article>
-      <article class="card reveal">
-        <h3>Системное администрирование</h3>
-        <p>Предотвращаем сбои заранее: мониторинг, обновления, безопасность и быстрое устранение инцидентов.</p>
-      </article>
+      {services.map((s) => (
+        <a class="card service-card reveal" href={s.href}>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+          <span class="service-card-link">Подробнее <ArrowRight width={14} height={14} /></span>
+        </a>
+      ))}
     </div>
   </div>
 </section>
+
+<style>
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .service-card-link {
+    margin-top: auto;
+    padding-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .service-card:hover .service-card-link {
+    gap: 10px;
+  }
+</style>

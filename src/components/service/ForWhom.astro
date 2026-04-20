@@ -1,0 +1,76 @@
+---
+interface Scenario {
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  heading?: string;
+  intro?: string;
+  scenarios: Scenario[];
+}
+
+const { heading = 'Для кого эта услуга', intro, scenarios } = Astro.props;
+---
+
+<section class="section section-with-bg">
+  <div class="container">
+    <h2>{heading}</h2>
+    {intro && <p class="section-intro reveal">{intro}</p>}
+    <div class="for-whom-grid">
+      {scenarios.map((s, i) => (
+        <div class="for-whom-item reveal">
+          <div class="for-whom-number">0{i + 1}</div>
+          <div>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .for-whom-grid {
+    display: grid;
+    gap: 2px;
+    background: var(--stroke);
+    border: 1px solid var(--stroke);
+  }
+  .for-whom-item {
+    background: var(--bg);
+    padding: 28px 24px;
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .for-whom-number {
+    font-family: "Space Mono", monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .for-whom-item h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--text);
+  }
+  .for-whom-item p {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    .for-whom-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 22px 18px;
+    }
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+interface Item {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  heading?: string;
+  items: Item[];
+}
+
+const { heading = 'Часто спрашивают', items } = Astro.props;
+---
+
+<section class="section section-with-bg">
+  <div class="container">
+    <h2>{heading}</h2>
+    <div class="faq-list">
+      {items.map((item) => (
+        <details class="faq-item reveal">
+          <summary>
+            <span>{item.q}</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    display: grid;
+    gap: 10px;
+    max-width: 900px;
+  }
+  .faq-item {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 2px;
+    padding: 0;
+    transition: border-color 0.2s ease;
+  }
+  .faq-item[open] {
+    border-color: rgba(74, 239, 121, 0.4);
+  }
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-weight: 500;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: transform 0.25s ease, color 0.2s ease;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+  .faq-item p {
+    margin: 0;
+    padding: 0 22px 20px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.55;
+  }
+</style>

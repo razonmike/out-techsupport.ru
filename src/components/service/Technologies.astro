@@ -1,0 +1,41 @@
+---
+interface Props {
+  heading?: string;
+  intro?: string;
+  items: string[];
+}
+
+const { heading = 'С чем работаем', intro, items } = Astro.props;
+---
+
+<section class="section section-with-bg">
+  <div class="container">
+    <h2>{heading}</h2>
+    {intro && <p class="section-intro reveal">{intro}</p>}
+    <div class="tech-chips reveal">
+      {items.map((t) => <span class="tech-chip">{t}</span>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tech-chip {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    padding: 8px 14px;
+    font-size: 0.88rem;
+    color: var(--text);
+    font-weight: 500;
+    font-family: "Space Mono", monospace;
+    letter-spacing: 0.02em;
+    transition: border-color 0.2s ease;
+  }
+  .tech-chip:hover {
+    border-color: var(--accent);
+  }
+</style>
