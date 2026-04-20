@@ -3,7 +3,7 @@
   --bg-2:      #11232d;
   --card:      #11232d;
   --stroke:    #1a303a;
-  --text:      #ffffff;
+  --text:      rgba(255, 255, 255, 0.9);
   --muted:     #7394a4;
   --accent:    #4aef79;
   --accent-dim: rgba(74, 239, 121, 0.08);
@@ -112,7 +112,7 @@ a {
   font-family: "Space Mono", monospace;
   font-size: 1.85rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text);
   letter-spacing: 0.02em;
   text-shadow: none;
 }
@@ -141,9 +141,9 @@ a {
   display: flex;
   gap: 28px;
   color: var(--muted);
-  font-family: "Space Mono", monospace;
-  font-size: 1rem;
-  font-weight: 400;
+  font-family: "Geist", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -203,11 +203,11 @@ body.nav-lock {
   clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px);
   padding: 12px 20px;
   color: #071c26;
-  font-family: "Space Mono", monospace;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-family: "Geist", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   background: var(--accent);
   display: inline-flex;
   align-items: center;
@@ -276,7 +276,7 @@ body.nav-lock {
 .hero-title-main {
   font-size: clamp(2rem, 3.2vw, 3rem);
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
@@ -338,13 +338,14 @@ body.nav-lock {
 .hero-feature-label {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   line-height: 1.2;
 }
 
 .hero-feature-desc {
   font-size: 0.78rem;
   color: var(--muted);
+  font-weight: 300;
   line-height: 1.35;
 }
 
@@ -393,7 +394,7 @@ body.nav-lock {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 20px;
-  color: #fff;
+  color: var(--text);
 }
 
 .hero-stats {
@@ -423,6 +424,7 @@ body.nav-lock {
 .hero-stat span {
   font-size: 0.85rem;
   color: var(--muted);
+  font-weight: 300;
   white-space: normal;
   line-height: 1.35;
 }
@@ -484,6 +486,7 @@ h2 {
 
 .section-intro {
   color: var(--muted);
+  font-weight: 300;
   margin: -8px 0 22px;
   max-width: 100%;
 }
@@ -543,6 +546,7 @@ h3 {
 .card p {
   margin: 0;
   color: var(--muted);
+  font-weight: 300;
 }
 
 .steps {
@@ -572,6 +576,7 @@ h3 {
 .step p {
   margin: 0;
   color: var(--muted);
+  font-weight: 300;
 }
 
 .case-grid {
@@ -588,6 +593,7 @@ h3 {
   margin: 0;
   padding-left: 18px;
   color: var(--muted);
+  font-weight: 300;
 }
 
 .case-card li + li {
@@ -631,9 +637,9 @@ h3 {
   margin: 20px auto 0;
   background: var(--accent);
   color: #071c26;
-  font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-family: "Geist", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 6px 22px;
@@ -653,7 +659,7 @@ h3 {
   font-size: 1.45rem;
   font-weight: 700;
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-style: normal;
 }
 
@@ -675,7 +681,7 @@ h3 {
 .tariff-group h4 {
   font-size: 0.92rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   margin: 0 0 10px;
 }
 
@@ -696,12 +702,13 @@ h3 {
 
 .tariff-list dt {
   color: var(--muted);
+  font-weight: 300;
   white-space: nowrap;
 }
 
 .tariff-list dd {
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-weight: 600;
 }
 
@@ -710,7 +717,7 @@ h3 {
   font-size: 1.55rem;
   font-weight: 800;
   font-style: normal;
-  color: #fff;
+  color: var(--text);
   margin-top: auto;
 }
 
@@ -819,6 +826,7 @@ h3 {
 .calc-row-price {
   font-size: 0.85rem;
   color: var(--muted);
+  font-weight: 300;
   font-style: italic;
 }
 
@@ -898,6 +906,7 @@ h3 {
 .calc-result-note {
   font-size: 0.82rem;
   color: var(--muted);
+  font-weight: 300;
   line-height: 1.45;
   margin-top: 12px;
 }
