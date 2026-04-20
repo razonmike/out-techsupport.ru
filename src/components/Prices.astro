@@ -1,96 +1,254 @@
 ---
+import ArrowRight from 'phosphor-astro/ArrowRight.astro';
+
+interface Feature {
+  label: string;
+  value: string;
+}
+
+interface Plan {
+  name: string;
+  tagline: string;
+  priceFrom: string;
+  perSeat: string;
+  features: Feature[];
+  featured?: boolean;
+}
+
+const plans: Plan[] = [
+  {
+    name: 'Удалённый',
+    tagline: 'Удалённая поддержка и мониторинг для небольших офисов',
+    priceFrom: 'от 10 000 ₽',
+    perSeat: '600 ₽',
+    features: [
+      { label: 'Время реакции', value: 'до 30 минут' },
+      { label: 'Выезды', value: 'за доп. оплату' },
+      { label: 'Резервное копирование', value: 'ежедневно' },
+      { label: 'Мониторинг оборудования', value: 'включено' },
+      { label: 'Консультации по IT', value: 'включено' },
+    ],
+  },
+  {
+    name: 'Оптимальный',
+    tagline: 'Базовый абонентский пакет с выездами и приоритетной поддержкой',
+    priceFrom: 'от 30 000 ₽',
+    perSeat: '800 ₽',
+    featured: true,
+    features: [
+      { label: 'Время реакции', value: 'до 15 минут' },
+      { label: 'Выезды', value: 'до 3/мес бесплатно' },
+      { label: 'Резервное копирование', value: 'ежедневно' },
+      { label: 'Мониторинг оборудования', value: 'включено' },
+      { label: 'Консультации по IT', value: 'включено' },
+    ],
+  },
+  {
+    name: 'Расширенный',
+    tagline: 'Полное сопровождение с неограниченными выездами',
+    priceFrom: 'от 40 000 ₽',
+    perSeat: '1 000 ₽',
+    features: [
+      { label: 'Время реакции', value: 'до 15 минут' },
+      { label: 'Выезды', value: 'неограниченно' },
+      { label: 'Резервное копирование', value: 'ежедневно' },
+      { label: 'Мониторинг оборудования', value: 'включено' },
+      { label: 'Консультации по IT', value: 'включено' },
+    ],
+  },
+];
 ---
 
 <section id="prices" class="section section-with-bg">
   <div class="container">
     <h2>Тарифы</h2>
+    <p class="section-intro reveal">
+      Стоимость зависит от количества оборудования. На главной — базовые тарифы;
+      точный расчёт под вашу инфраструктуру — в калькуляторе ниже.
+    </p>
+
     <div class="tariffs">
-
-      <article class="tariff-card reveal">
-        <div class="tariff-header">
-          <h3>Тариф «Удалённый»</h3>
-        </div>
-        <div class="tariff-body">
-          <div class="tariff-group">
-            <h4>Услуги:</h4>
-            <dl class="tariff-list">
-              <div><dt>Время реакции:</dt><dd>До 30 минут</dd></div>
-              <div><dt>Выезды:</dt><dd>За доп. оплату (2000/3000 руб./ч)</dd></div>
-              <div><dt>Резервное копирование:</dt><dd><strong>Ежедневно</strong></dd></div>
-              <div><dt>Мониторинг оборудования:</dt><dd>Да</dd></div>
-              <div><dt>Консультации по IT вопросам:</dt><dd>Да</dd></div>
-            </dl>
+      {plans.map((plan) => (
+        <article class={`tariff-card reveal ${plan.featured ? 'tariff-featured' : ''}`}>
+          {plan.featured && <span class="tariff-badge">популярный</span>}
+          <div class="tariff-head">
+            <h3 class="tariff-name">{plan.name}</h3>
+            <p class="tariff-tagline">{plan.tagline}</p>
           </div>
-          <div class="tariff-group">
-            <h4>Стоимость единицы оборудования:</h4>
-            <dl class="tariff-list">
-              <div><dt>ПК:</dt><dd><strong>600 руб.</strong></dd></div>
-              <div><dt>Сервер:</dt><dd><strong>2000 руб.</strong></dd></div>
-              <div><dt>МФУ:</dt><dd><strong>300 руб.</strong></dd></div>
-              <div><dt>Wi-Fi точка доступа:</dt><dd><strong>500 руб.</strong></dd></div>
-            </dl>
+          <div class="tariff-price-line">
+            <span class="tariff-price-amount">{plan.priceFrom}</span>
+            <span class="tariff-price-period">/ месяц</span>
           </div>
-        </div>
-        <div class="tariff-price">От 10 000 руб./мес.</div>
-      </article>
-
-      <article class="tariff-card tariff-featured reveal">
-        <span class="tariff-badge">Популярный</span>
-        <div class="tariff-header">
-          <h3>Тариф «Оптимальный»</h3>
-        </div>
-        <div class="tariff-body">
-          <div class="tariff-group">
-            <h4>Услуги:</h4>
-            <dl class="tariff-list">
-              <div><dt>Время реакции:</dt><dd>До 15 минут</dd></div>
-              <div><dt>Выезды:</dt><dd><strong>До 3 раз в месяц бесплатно</strong></dd></div>
-              <div><dt>Резервное копирование:</dt><dd><strong>Ежедневно</strong></dd></div>
-              <div><dt>Мониторинг оборудования:</dt><dd>Да</dd></div>
-              <div><dt>Консультации по IT вопросам:</dt><dd>Да</dd></div>
-            </dl>
+          <ul class="tariff-features">
+            {plan.features.map((f) => (
+              <li>
+                <span class="tariff-feature-label">{f.label}</span>
+                <span class="tariff-feature-value">{f.value}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="tariff-seat">
+            За одно рабочее место — <strong>{plan.perSeat}</strong>
           </div>
-          <div class="tariff-group">
-            <h4>Стоимость единицы оборудования:</h4>
-            <dl class="tariff-list">
-              <div><dt>ПК:</dt><dd><strong>800 руб.</strong></dd></div>
-              <div><dt>Сервер:</dt><dd><strong>2000 руб.</strong></dd></div>
-              <div><dt>МФУ:</dt><dd><strong>300 руб.</strong></dd></div>
-              <div><dt>Wi-Fi точка доступа:</dt><dd><strong>500 руб.</strong></dd></div>
-            </dl>
-          </div>
-        </div>
-        <div class="tariff-price">От 30 000 руб./мес.</div>
-      </article>
-
-      <article class="tariff-card reveal">
-        <div class="tariff-header">
-          <h3>Тариф «Расширенный»</h3>
-        </div>
-        <div class="tariff-body">
-          <div class="tariff-group">
-            <h4>Услуги:</h4>
-            <dl class="tariff-list">
-              <div><dt>Время реакции:</dt><dd>До 15 минут</dd></div>
-              <div><dt>Выезды:</dt><dd><strong>Бесплатно, неограниченно</strong></dd></div>
-              <div><dt>Резервное копирование:</dt><dd><strong>Ежедневно</strong></dd></div>
-              <div><dt>Мониторинг оборудования:</dt><dd>Да</dd></div>
-              <div><dt>Консультации по IT вопросам:</dt><dd>Да</dd></div>
-            </dl>
-          </div>
-          <div class="tariff-group">
-            <h4>Стоимость единицы оборудования:</h4>
-            <dl class="tariff-list">
-              <div><dt>ПК:</dt><dd><strong>1000 руб.</strong></dd></div>
-              <div><dt>Сервер:</dt><dd><strong>2000 руб.</strong></dd></div>
-              <div><dt>МФУ:</dt><dd><strong>300 руб.</strong></dd></div>
-              <div><dt>Wi-Fi точка доступа:</dt><dd><strong>500 руб.</strong></dd></div>
-            </dl>
-          </div>
-        </div>
-        <div class="tariff-price">От 40 000 руб./мес.</div>
-      </article>
-
+          <a class="btn tariff-cta" href="#contacts">
+            Обсудить тариф <ArrowRight width={14} height={14} />
+          </a>
+        </article>
+      ))}
     </div>
+
+    <p class="tariff-note reveal">
+      В стоимость обслуживания включены серверы (2 000 ₽), МФУ (300 ₽) и Wi-Fi-точки
+      (500 ₽) за единицу. <a href="#calculator">Открыть калькулятор →</a>
+    </p>
   </div>
 </section>
+
+<style>
+  .tariff-card {
+    position: relative;
+    border: 1px solid var(--stroke);
+    background: var(--card);
+    padding: 28px 26px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    transition: border-color 0.25s ease;
+  }
+  .tariff-card:hover {
+    border-color: rgba(74, 239, 121, 0.35);
+  }
+
+  .tariff-featured {
+    border-color: rgba(74, 239, 121, 0.45);
+  }
+
+  .tariff-badge {
+    position: absolute;
+    top: 0;
+    right: 22px;
+    transform: translateY(-50%);
+    background: var(--accent);
+    color: #071c26;
+    font-family: "Geist", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 12px;
+    clip-path: polygon(5px 0, 100% 0, 100% 100%, 0 100%, 0 5px);
+  }
+
+  .tariff-name {
+    margin: 0 0 6px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .tariff-tagline {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .tariff-price-line {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--stroke);
+  }
+  .tariff-price-amount {
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: "Space Mono", monospace;
+    letter-spacing: -0.01em;
+  }
+  .tariff-price-period {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .tariff-features {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+  .tariff-features li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+  .tariff-feature-label {
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .tariff-feature-value {
+    color: var(--text);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .tariff-seat {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 300;
+    padding-top: 16px;
+    border-top: 1px solid var(--stroke);
+  }
+  .tariff-seat strong {
+    color: var(--text);
+    font-weight: 600;
+    font-family: "Space Mono", monospace;
+  }
+
+  .tariff-cta {
+    margin-top: auto;
+    width: 100%;
+    background: transparent;
+    color: var(--text);
+    outline: 1px solid var(--stroke);
+    outline-offset: -1px;
+    justify-content: center;
+  }
+  .tariff-cta:hover {
+    opacity: 1;
+    outline-color: var(--accent);
+    color: var(--accent);
+  }
+  .tariff-featured .tariff-cta {
+    background: var(--accent);
+    color: #071c26;
+    outline: none;
+  }
+  .tariff-featured .tariff-cta:hover {
+    opacity: 0.88;
+    color: #071c26;
+  }
+
+  .tariff-note {
+    margin: 24px 0 0;
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 300;
+    text-align: center;
+  }
+  .tariff-note a {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .tariff-note a:hover {
+    text-decoration: underline;
+  }
+</style>

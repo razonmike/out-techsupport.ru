@@ -1,15 +1,80 @@
 ---
+import Phone from 'phosphor-astro/Phone.astro';
+import EnvelopeSimple from 'phosphor-astro/EnvelopeSimple.astro';
+import PaperPlaneTilt from 'phosphor-astro/PaperPlaneTilt.astro';
+import DownloadSimple from 'phosphor-astro/DownloadSimple.astro';
+import CheckCircle from 'phosphor-astro/CheckCircle.astro';
+import Clock from 'phosphor-astro/Clock.astro';
+import MapPin from 'phosphor-astro/MapPin.astro';
 ---
 
 <section id="contacts" class="section section-with-bg contacts">
   <div class="container contacts-grid">
-    <div class="reveal">
+    <div class="contacts-left reveal">
       <h2>Обсудим ваш проект</h2>
-      <p>
-        Оставьте контакты, и мы предложим формат поддержки, который снизит
-        нагрузку на вашу команду и стабилизирует ключевые IT-сервисы.
+      <p class="contacts-lead">
+        Оставьте контакты — или напишите напрямую. Предложим формат поддержки,
+        который снизит нагрузку на вашу команду и стабилизирует ключевые IT-сервисы.
       </p>
+
+      <div class="contacts-direct">
+        <a class="contacts-direct-item" href="tel:+79656093153">
+          <Phone class="contacts-direct-icon" width={20} height={20} />
+          <div>
+            <div class="contacts-direct-label">Телефон</div>
+            <div class="contacts-direct-value">+7 (965) 609-31-53</div>
+          </div>
+        </a>
+        <a class="contacts-direct-item" href="mailto:support@out-techsupport.ru">
+          <EnvelopeSimple class="contacts-direct-icon" width={20} height={20} />
+          <div>
+            <div class="contacts-direct-label">Почта</div>
+            <div class="contacts-direct-value">support@out-techsupport.ru</div>
+          </div>
+        </a>
+        <a class="contacts-direct-item" href="https://t.me/+79656093153" target="_blank" rel="noopener">
+          <PaperPlaneTilt class="contacts-direct-icon" width={20} height={20} />
+          <div>
+            <div class="contacts-direct-label">Telegram</div>
+            <div class="contacts-direct-value">Написать в Telegram</div>
+          </div>
+        </a>
+        <a class="contacts-direct-item contacts-direct-download" href="/downloads/TechSupport.exe">
+          <DownloadSimple class="contacts-direct-icon" width={20} height={20} />
+          <div>
+            <div class="contacts-direct-label">Помощь сейчас</div>
+            <div class="contacts-direct-value">Скачать клиент удалённого доступа (.exe для Windows)</div>
+          </div>
+        </a>
+      </div>
+
+      <ul class="contacts-reassure">
+        <li>
+          <CheckCircle class="contacts-check" width={16} height={16} />
+          <span>Первичный аудит инфраструктуры — бесплатно</span>
+        </li>
+        <li>
+          <CheckCircle class="contacts-check" width={16} height={16} />
+          <span>Работаем с юр. лицами и ИП, закрывающие документы</span>
+        </li>
+        <li>
+          <CheckCircle class="contacts-check" width={16} height={16} />
+          <span>Минимальный срок договора — 1 месяц, без долгих обязательств</span>
+        </li>
+      </ul>
+
+      <div class="contacts-meta">
+        <span class="contacts-meta-item">
+          <Clock class="contacts-meta-icon" width={15} height={15} />
+          Пн–Пт · 9:00–19:00 МСК
+        </span>
+        <span class="contacts-meta-item">
+          <MapPin class="contacts-meta-icon" width={15} height={15} />
+          Казань, работаем по РТ и регионам
+        </span>
+      </div>
     </div>
+
     <form class="contact-form reveal">
       <label>Имя
         <input type="text" placeholder="Ваше имя">
@@ -25,3 +90,95 @@
     </form>
   </div>
 </section>
+
+<style>
+  .contacts-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contacts-lead {
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .contacts-direct {
+    display: grid;
+    gap: 10px;
+  }
+  .contacts-direct-item {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    color: var(--text);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .contacts-direct-item:hover {
+    border-color: rgba(74, 239, 121, 0.4);
+    background: rgba(74, 239, 121, 0.04);
+  }
+  .contacts-direct-item :global(.contacts-direct-icon) {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .contacts-direct-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+  .contacts-direct-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .contacts-reassure {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+  .contacts-reassure li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .contacts-reassure :global(.contacts-check) {
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contacts-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding-top: 8px;
+    border-top: 1px solid var(--stroke);
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 300;
+  }
+  .contacts-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .contacts-meta-item :global(.contacts-meta-icon) {
+    color: var(--accent);
+  }
+</style>
