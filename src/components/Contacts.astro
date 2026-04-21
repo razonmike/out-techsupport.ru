@@ -75,17 +75,22 @@ import MapPin from 'phosphor-astro/MapPin.astro';
       </div>
     </div>
 
-    <form class="contact-form reveal">
+    <form class="contact-form reveal" id="contact-form" novalidate>
       <label>Имя
-        <input type="text" placeholder="Ваше имя">
+        <input type="text" name="name" id="cf-name" placeholder="Ваше имя" required autocomplete="name" maxlength="120">
       </label>
       <label>Телефон
-        <input type="tel" placeholder="+7 (___) ___-__-__">
+        <input type="tel" name="phone" id="cf-phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel" maxlength="40" inputmode="tel">
       </label>
       <label>Комментарий
-        <textarea rows="4" placeholder="Коротко опишите задачу"></textarea>
+        <textarea name="comment" id="cf-comment" rows="4" placeholder="Коротко опишите задачу" maxlength="2000"></textarea>
       </label>
-      <button class="btn" type="button">Получить консультацию</button>
+      <label class="cf-honeypot" aria-hidden="true">
+        Сайт
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </label>
+      <button class="btn" type="submit" id="cf-submit">Получить консультацию</button>
+      <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
       <p class="form-note">Ответим в рабочее время и предложим варианты запуска работ под ваш бюджет.</p>
     </form>
   </div>
@@ -181,4 +186,109 @@ import MapPin from 'phosphor-astro/MapPin.astro';
   .contacts-meta-item :global(.contacts-meta-icon) {
     color: var(--accent);
   }
+
+  .cf-honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-status {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    font-weight: 400;
+    min-height: 1em;
+  }
+  .form-status:empty {
+    display: none;
+  }
+  .form-status.is-ok {
+    color: var(--accent);
+  }
+  .form-status.is-err {
+    color: #ff7070;
+  }
+  .form-status.is-wait {
+    color: var(--muted);
+  }
+
+  .contact-form input:invalid:not(:placeholder-shown),
+  .contact-form textarea:invalid:not(:placeholder-shown) {
+    border-color: rgba(255, 112, 112, 0.6);
+  }
+
+  #cf-submit[disabled] {
+    opacity: 0.7;
+    cursor: progress;
+  }
 </style>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+    const btn = document.getElementById('cf-submit');
+    const status = document.getElementById('cf-status');
+    const name = document.getElementById('cf-name');
+    const phone = document.getElementById('cf-phone');
+    const comment = document.getElementById('cf-comment');
+    const honeypot = form.querySelector('input[name="website"]');
+
+    const origBtn = btn.textContent;
+
+    function setStatus(kind, msg) {
+      status.className = 'form-status' + (kind ? ' is-' + kind : '');
+      status.textContent = msg || '';
+    }
+
+    function digits(s) { return (s || '').replace(/\D+/g, ''); }
+
+    form.addEventListener('submit', async function (ev) {
+      ev.preventDefault();
+      if (honeypot && honeypot.value) {
+        setStatus('ok', 'Спасибо! Мы свяжемся с вами в рабочее время.');
+        form.reset();
+        return;
+      }
+
+      const n = (name.value || '').trim();
+      const p = (phone.value || '').trim();
+      const c = (comment.value || '').trim();
+
+      if (!n) { setStatus('err', 'Укажите ваше имя.'); name.focus(); return; }
+      if (digits(p).length < 10) { setStatus('err', 'Проверьте номер телефона — минимум 10 цифр.'); phone.focus(); return; }
+
+      btn.disabled = true;
+      btn.textContent = 'Отправляем…';
+      setStatus('wait', 'Отправляем заявку…');
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: n, phone: p, comment: c, website: honeypot ? honeypot.value : '' })
+        });
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
+        if (res.ok && data && data.ok) {
+          setStatus('ok', 'Спасибо! Заявка принята — ответим в рабочее время.');
+          form.reset();
+        } else if (res.status === 429) {
+          setStatus('err', 'Слишком много заявок с вашего IP. Попробуйте через минуту.');
+        } else if (res.status === 400) {
+          setStatus('err', 'Проверьте, что имя и телефон заполнены корректно.');
+        } else {
+          setStatus('err', 'Не удалось отправить. Напишите в Telegram или на почту — мы рядом.');
+        }
+      } catch (_) {
+        setStatus('err', 'Нет связи с сервером. Напишите в Telegram или на почту.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = origBtn;
+      }
+    });
+  })();
+</script>
