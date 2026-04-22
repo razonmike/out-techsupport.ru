@@ -8,7 +8,6 @@ interface Feature {
 }
 
 interface Props {
-  kicker: string;
   title: string;
   lead: string;
   features?: Feature[];
@@ -17,7 +16,6 @@ interface Props {
 }
 
 const {
-  kicker,
   title,
   lead,
   features = [],
@@ -29,7 +27,6 @@ const {
 <section class="service-hero section-with-bg">
   <div class="container service-hero-inner">
     <div class="service-hero-left reveal">
-      <div class="service-hero-kicker">{kicker}</div>
       <h1 class="service-hero-title">{title}</h1>
       <p class="service-hero-lead">{lead}</p>
       <div class="service-hero-actions">
@@ -66,15 +63,6 @@ const {
     grid-template-columns: 1.1fr 1fr;
     gap: 48px;
     align-items: start;
-  }
-  .service-hero-kicker {
-    font-family: "Geist", sans-serif;
-    font-size: 0.78rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--accent);
-    margin-bottom: 18px;
   }
   .service-hero-title {
     font-size: clamp(1.9rem, 3.2vw, 2.9rem);
