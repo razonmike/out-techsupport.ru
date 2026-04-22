@@ -13,7 +13,7 @@ import MapPin from 'phosphor-astro/MapPin.astro';
     <div class="contacts-left reveal">
       <h2>Обсудим ваш проект</h2>
       <p class="contacts-lead">
-        Оставьте контакты — или напишите напрямую. Предложим формат поддержки,
+        Оставьте контакты - или напишите напрямую. Предложим формат поддержки,
         который снизит нагрузку на вашу команду и стабилизирует ключевые IT-сервисы.
       </p>
 
@@ -51,7 +51,7 @@ import MapPin from 'phosphor-astro/MapPin.astro';
       <ul class="contacts-reassure">
         <li>
           <CheckCircle class="contacts-check" width={16} height={16} />
-          <span>Первичный аудит инфраструктуры — бесплатно</span>
+          <span>Первичный аудит инфраструктуры - бесплатно</span>
         </li>
         <li>
           <CheckCircle class="contacts-check" width={16} height={16} />
@@ -59,14 +59,14 @@ import MapPin from 'phosphor-astro/MapPin.astro';
         </li>
         <li>
           <CheckCircle class="contacts-check" width={16} height={16} />
-          <span>Минимальный срок договора — 1 месяц, без долгих обязательств</span>
+          <span>Минимальный срок договора - 1 месяц, без долгих обязательств</span>
         </li>
       </ul>
 
       <div class="contacts-meta">
         <span class="contacts-meta-item">
           <Clock class="contacts-meta-icon" width={15} height={15} />
-          Пн–Пт · 9:00–19:00 МСК
+          Пн-Пт · 9:00-19:00 МСК
         </span>
         <span class="contacts-meta-item">
           <MapPin class="contacts-meta-icon" width={15} height={15} />
@@ -259,7 +259,7 @@ import MapPin from 'phosphor-astro/MapPin.astro';
       const c = (comment.value || '').trim();
 
       if (!n) { setStatus('err', 'Укажите ваше имя.'); name.focus(); return; }
-      if (digits(p).length < 10) { setStatus('err', 'Проверьте номер телефона — минимум 10 цифр.'); phone.focus(); return; }
+      if (digits(p).length < 10) { setStatus('err', 'Проверьте номер телефона - минимум 10 цифр.'); phone.focus(); return; }
 
       btn.disabled = true;
       btn.textContent = 'Отправляем…';
@@ -274,14 +274,14 @@ import MapPin from 'phosphor-astro/MapPin.astro';
         let data = {};
         try { data = await res.json(); } catch (_) {}
         if (res.ok && data && data.ok) {
-          setStatus('ok', 'Спасибо! Заявка принята — ответим в рабочее время.');
+          setStatus('ok', 'Спасибо! Заявка принята - ответим в рабочее время.');
           form.reset();
         } else if (res.status === 429) {
           setStatus('err', 'Слишком много заявок с вашего IP. Попробуйте через минуту.');
         } else if (res.status === 400) {
           setStatus('err', 'Проверьте, что имя и телефон заполнены корректно.');
         } else {
-          setStatus('err', 'Не удалось отправить. Напишите в Telegram или на почту — мы рядом.');
+          setStatus('err', 'Не удалось отправить. Напишите в Telegram или на почту - мы рядом.');
         }
       } catch (_) {
         setStatus('err', 'Нет связи с сервером. Напишите в Telegram или на почту.');
