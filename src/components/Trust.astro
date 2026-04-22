@@ -1,4 +1,8 @@
 ---
+import CalendarCheck from 'phosphor-astro/CalendarCheck.astro';
+import Wrench from 'phosphor-astro/Wrench.astro';
+import TrendDown from 'phosphor-astro/TrendDown.astro';
+import MapPinLine from 'phosphor-astro/MapPinLine.astro';
 ---
 
 <section class="section section-with-bg">
@@ -8,22 +12,41 @@
       Работаем как внешний IT-отдел: говорим понятно, реагируем быстро, фиксируем результат в отчётах.
     </p>
     <div class="cards cards-2">
-      <article class="card reveal">
+      <article class="card trust-card reveal">
+        <CalendarCheck class="trust-icon" width={28} height={28} />
         <h3>Опыт с 2014 года</h3>
-        <p>11+ лет на рынке. 25+ компаний на постоянном обслуживании, 1000+ реализованных проектов в 10+ отраслях - логистика, производство, клиники, розница, HoReCa.</p>
+        <p>25+ компаний на постоянном обслуживании, 1000+ реализованных проектов в 10+ отраслях - логистика, производство, клиники, розница, HoReCa.</p>
       </article>
-      <article class="card reveal">
+      <article class="card trust-card reveal">
+        <Wrench class="trust-icon" width={28} height={28} />
         <h3>Устраняем проблему надолго</h3>
         <p>Не ставим временных заплаток и дешёвого оборудования. Находим причину, выстраиваем стабильное решение - чтобы к этой задаче больше не возвращаться.</p>
       </article>
-      <article class="card reveal">
+      <article class="card trust-card reveal">
+        <TrendDown class="trust-icon" width={28} height={28} />
         <h3>Сокращаем расходы на IT до 50%</h3>
         <p>Заменяем дорогие облачные сервисы на собственные серверы с open source виртуализацией. Платёж за облако превращается в окупаемое железо.</p>
       </article>
-      <article class="card reveal">
+      <article class="card trust-card reveal">
+        <MapPinLine class="trust-icon" width={28} height={28} />
         <h3>Удалённо и с выездом</h3>
         <p>Казань и Татарстан - с выездом. Остальная Россия - удалённо. Закрываем задачу тем форматом, который в этом случае быстрее и дешевле.</p>
       </article>
     </div>
   </div>
 </section>
+
+<style>
+  .trust-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .trust-card :global(.trust-icon) {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .trust-card h3 {
+    margin: 0;
+  }
+</style>

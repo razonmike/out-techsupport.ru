@@ -26,13 +26,13 @@ const {
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+  <a class="skip-link" href="#top">Перейти к содержимому</a>
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="/">
         <img class="brand-icon" src="/assets/images/logo-icon.svg" alt="TechSupport logo">
         <span class="brand-copy">
           <span class="brand-text">TechSupport<span class="brand-cursor">_</span></span>
-          <span class="brand-subtext">IT аутсорсинг вашего бизнеса</span>
         </span>
       </a>
       <nav class="menu" id="main-menu">
@@ -71,16 +71,55 @@ const {
         <img class="brand-icon" src="/assets/images/logo-icon.svg" alt="TechSupport logo">
         <span class="brand-copy">
           <span class="brand-text">TechSupport<span class="brand-cursor">_</span></span>
-          <span class="brand-subtext">IT аутсорсинг вашего бизнеса</span>
         </span>
       </a>
       <div class="footer-contacts">
         <a href="tel:+79656093153">+7 (965) 609-31-53</a>
         <a href="mailto:support@out-techsupport.ru">support@out-techsupport.ru</a>
         <a href="/downloads/TechSupport.exe" class="footer-download">Скачать клиент удалённого доступа</a>
+        <a href="/privacy" class="footer-privacy">Политика обработки персональных данных</a>
       </div>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var counters = document.querySelectorAll("[data-counter]");
+      if (!counters.length) return;
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      function animate(el) {
+        var target = parseInt(el.getAttribute("data-target"), 10) || 0;
+        var suffix = el.getAttribute("data-suffix") || "";
+        if (reduced || target === 0) {
+          el.textContent = target + suffix;
+          return;
+        }
+        var duration = 1400;
+        var start = performance.now();
+        function tick(now) {
+          var p = Math.min(1, (now - start) / duration);
+          var eased = 1 - Math.pow(1 - p, 3);
+          var v = Math.round(target * eased);
+          el.textContent = v + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        el.textContent = "0" + suffix;
+        requestAnimationFrame(tick);
+      }
+      if (!("IntersectionObserver" in window)) {
+        counters.forEach(animate);
+        return;
+      }
+      var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          animate(e.target);
+          obs.unobserve(e.target);
+        });
+      }, { threshold: 0.3 });
+      counters.forEach(function (c) { io.observe(c); });
+    })();
+  </script>
 
   <script>
     (function () {

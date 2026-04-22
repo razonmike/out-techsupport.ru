@@ -82,12 +82,19 @@ import MapPin from 'phosphor-astro/MapPin.astro';
       <label>Телефон
         <input type="tel" name="phone" id="cf-phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel" maxlength="40" inputmode="tel">
       </label>
+      <label>Email <span class="cf-optional">(не обязательно)</span>
+        <input type="email" name="email" id="cf-email" placeholder="you@company.ru" autocomplete="email" maxlength="120" inputmode="email">
+      </label>
       <label>Комментарий
         <textarea name="comment" id="cf-comment" rows="4" placeholder="Коротко опишите задачу" maxlength="2000"></textarea>
       </label>
       <label class="cf-honeypot" aria-hidden="true">
         Сайт
         <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </label>
+      <label class="cf-consent">
+        <input type="checkbox" name="consent" id="cf-consent" required>
+        <span>Согласен на обработку персональных данных в соответствии с <a href="/privacy" target="_blank" rel="noopener">политикой конфиденциальности</a>.</span>
       </label>
       <button class="btn" type="submit" id="cf-submit">Получить консультацию</button>
       <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
@@ -195,6 +202,40 @@ import MapPin from 'phosphor-astro/MapPin.astro';
     overflow: hidden;
   }
 
+  .cf-optional {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-left: 4px;
+  }
+
+  .cf-consent {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .cf-consent input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .cf-consent a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .cf-consent a:hover {
+    text-decoration: none;
+  }
+
   .form-status {
     margin: 0;
     font-size: 0.92rem;
@@ -234,7 +275,9 @@ import MapPin from 'phosphor-astro/MapPin.astro';
     const status = document.getElementById('cf-status');
     const name = document.getElementById('cf-name');
     const phone = document.getElementById('cf-phone');
+    const email = document.getElementById('cf-email');
     const comment = document.getElementById('cf-comment');
+    const consent = document.getElementById('cf-consent');
     const honeypot = form.querySelector('input[name="website"]');
 
     const origBtn = btn.textContent;
@@ -256,10 +299,13 @@ import MapPin from 'phosphor-astro/MapPin.astro';
 
       const n = (name.value || '').trim();
       const p = (phone.value || '').trim();
+      const e = (email.value || '').trim();
       const c = (comment.value || '').trim();
 
       if (!n) { setStatus('err', 'Укажите ваше имя.'); name.focus(); return; }
       if (digits(p).length < 10) { setStatus('err', 'Проверьте номер телефона - минимум 10 цифр.'); phone.focus(); return; }
+      if (e && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { setStatus('err', 'Проверьте email.'); email.focus(); return; }
+      if (!consent.checked) { setStatus('err', 'Нужно согласие на обработку персональных данных.'); consent.focus(); return; }
 
       btn.disabled = true;
       btn.textContent = 'Отправляем…';
@@ -269,7 +315,7 @@ import MapPin from 'phosphor-astro/MapPin.astro';
         const res = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: n, phone: p, comment: c, website: honeypot ? honeypot.value : '' })
+          body: JSON.stringify({ name: n, phone: p, email: e, comment: c, consent: consent.checked, website: honeypot ? honeypot.value : '' })
         });
         let data = {};
         try { data = await res.json(); } catch (_) {}
