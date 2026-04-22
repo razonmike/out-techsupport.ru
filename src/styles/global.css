@@ -312,18 +312,16 @@ body.nav-lock {
 }
 
 .hero-title-main {
-  font-size: clamp(2.2rem, 4.6vw, 4.1rem);
+  font-size: clamp(2rem, 3.2vw, 3rem);
   font-weight: 700;
   color: var(--text);
-  letter-spacing: -0.025em;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 .hero-title-accent {
-  font-size: clamp(2.2rem, 4.6vw, 4.1rem);
+  font-size: clamp(2rem, 3.2vw, 3rem);
   font-weight: 700;
   color: var(--accent);
-  letter-spacing: -0.025em;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
@@ -455,12 +453,10 @@ body.nav-lock {
 }
 
 .hero-stat strong {
-  font-size: 2rem;
+  font-size: 1.4rem;
   color: var(--accent);
   white-space: normal;
-  line-height: 1.1;
-  font-family: "Space Mono", monospace;
-  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .hero-stat span {
