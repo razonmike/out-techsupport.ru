@@ -439,6 +439,13 @@ body.nav-lock {
   border: 1px solid var(--stroke);
   border-radius: 2px;
   padding: 28px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.hero-right:hover {
+  border-color: rgba(74, 239, 121, 0.25);
+  box-shadow: none;
 }
 
 .hero-block-title {
@@ -792,6 +799,13 @@ h3 {
   padding: 22px;
   display: grid;
   gap: 14px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.contact-form:hover {
+  border-color: rgba(74, 239, 121, 0.25);
+  box-shadow: none;
 }
 
 .contact-form label {
@@ -860,6 +874,13 @@ h3 {
   border: 1px solid var(--stroke);
   border-radius: 2px;
   padding: 8px 0;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.calc-left:hover {
+  border-color: rgba(74, 239, 121, 0.25);
+  box-shadow: none;
 }
 
 .calc-row {
@@ -938,6 +959,13 @@ h3 {
   align-items: center;
   text-align: center;
   gap: 4px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.calc-result:hover {
+  border-color: rgba(74, 239, 121, 0.25);
+  box-shadow: none;
 }
 
 .calc-result-label {
