@@ -7,6 +7,7 @@ import Process from '../../components/service/Process.astro';
 import FAQ from '../../components/service/FAQ.astro';
 import FinalCTA from '../../components/service/FinalCTA.astro';
 import RelatedServices from '../../components/service/RelatedServices.astro';
+import Breadcrumbs from '../../components/service/Breadcrumbs.astro';
 import Contacts from '../../components/Contacts.astro';
 
 import VideoCamera from 'phosphor-astro/VideoCamera.astro';
@@ -17,11 +18,25 @@ import Network from 'phosphor-astro/Network.astro';
 import ShieldCheck from 'phosphor-astro/ShieldCheck.astro';
 import Clock from 'phosphor-astro/Clock.astro';
 
-const title = 'Видеонаблюдение и СКУД для бизнеса | TechSupport Казань';
-const description = 'Установка и обслуживание систем видеонаблюдения и контроля доступа: IP-камеры, турникеты, распознавание лиц, интеграция с 1С:ЗУП.';
+const title = 'Видеонаблюдение и СКУД в Казани | TechSupport';
+const description = 'Монтаж и обслуживание систем видеонаблюдения и СКУД в Казани и Татарстане: IP-камеры, турникеты, распознавание лиц, интеграция с 1С:ЗУП.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Видеонаблюдение и СКУД',
+  provider: { '@type': 'LocalBusiness', name: 'TechSupport', url: 'https://out-techsupport.ru' },
+  areaServed: [
+    { '@type': 'City', name: 'Казань' },
+    { '@type': 'State', name: 'Республика Татарстан' },
+  ],
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} schema={serviceSchema}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Услуги', href: '/#services' }, { label: 'Видеонаблюдение и СКУД' }]} />
+  </div>
   <ServiceHero
     title="Видеонаблюдение и СКУД"
     lead="Видеонаблюдение и контроль доступа под задачи бизнеса. Проектируем и устанавливаем системы видеонаблюдения и СКУД для офисов, складов, ритейла и производств. От 4 камер и одного турникета до сотен точек с распознаванием лиц и интеграцией в 1С по учёту рабочего времени."

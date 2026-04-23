@@ -1,0 +1,72 @@
+---
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+
+const SITE_URL = 'https://out-techsupport.ru';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    ...(c.href ? { item: new URL(c.href, SITE_URL).href } : {}),
+  })),
+};
+---
+
+<nav class="breadcrumbs" aria-label="Хлебные крошки">
+  <ol>
+    {items.map((c, i) => (
+      <li>
+        {c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+        {i < items.length - 1 && <span class="breadcrumbs-sep" aria-hidden="true">/</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
+<style>
+  .breadcrumbs {
+    padding: 20px 0 0;
+    font-size: 0.85rem;
+  }
+  .breadcrumbs ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    color: var(--muted);
+  }
+  .breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .breadcrumbs a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    color: var(--accent);
+  }
+  .breadcrumbs span[aria-current="page"] {
+    color: var(--text);
+  }
+  .breadcrumbs-sep {
+    color: var(--stroke);
+  }
+</style>

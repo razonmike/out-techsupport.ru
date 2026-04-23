@@ -7,6 +7,7 @@ import Process from '../../components/service/Process.astro';
 import FAQ from '../../components/service/FAQ.astro';
 import FinalCTA from '../../components/service/FinalCTA.astro';
 import RelatedServices from '../../components/service/RelatedServices.astro';
+import Breadcrumbs from '../../components/service/Breadcrumbs.astro';
 import Contacts from '../../components/Contacts.astro';
 
 import Cpu from 'phosphor-astro/Cpu.astro';
@@ -16,11 +17,25 @@ import TrendUp from 'phosphor-astro/TrendUp.astro';
 import Database from 'phosphor-astro/Database.astro';
 import ShieldCheck from 'phosphor-astro/ShieldCheck.astro';
 
-const title = 'Виртуализация серверов: Hyper-V, VMware, Proxmox | TechSupport';
-const description = 'Виртуализация и миграция с физических серверов: Hyper-V, VMware vSphere, Proxmox VE. Отказоустойчивые кластеры, резервное копирование Veeam, SAN/NAS-хранилища.';
+const title = 'Виртуализация серверов в Казани: Proxmox, VMware, Hyper-V | TechSupport';
+const description = 'Виртуализация и миграция серверов в Казани и Татарстане: Proxmox VE, VMware vSphere, Hyper-V. Отказоустойчивые кластеры, резервное копирование Veeam. Экономия на железе до 50%.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Виртуализация серверов',
+  provider: { '@type': 'LocalBusiness', name: 'TechSupport', url: 'https://out-techsupport.ru' },
+  areaServed: [
+    { '@type': 'City', name: 'Казань' },
+    { '@type': 'State', name: 'Республика Татарстан' },
+  ],
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} schema={serviceSchema}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Услуги', href: '/#services' }, { label: 'Виртуализация' }]} />
+  </div>
   <ServiceHero
     title="Виртуализация"
     lead="Меньше серверов, меньше бюджет, больше отказоустойчивости. Объединяем несколько физических серверов в виртуальную платформу: Hyper-V, VMware, Proxmox. Быстрые снимки, лёгкий откат, перенос на новое железо без простоя. От миграции одного сервера до построения отказоустойчивого кластера."

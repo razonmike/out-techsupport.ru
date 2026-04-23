@@ -7,6 +7,7 @@ import Process from '../../components/service/Process.astro';
 import FAQ from '../../components/service/FAQ.astro';
 import FinalCTA from '../../components/service/FinalCTA.astro';
 import RelatedServices from '../../components/service/RelatedServices.astro';
+import Breadcrumbs from '../../components/service/Breadcrumbs.astro';
 import Contacts from '../../components/Contacts.astro';
 
 import WifiHigh from 'phosphor-astro/WifiHigh.astro';
@@ -17,11 +18,25 @@ import Desktop from 'phosphor-astro/Desktop.astro';
 import UserGear from 'phosphor-astro/UserGear.astro';
 import Clock from 'phosphor-astro/Clock.astro';
 
-const title = 'Организация Wi-Fi для офиса, склада, HoReCa | TechSupport';
-const description = 'Проектирование и монтаж корпоративного Wi-Fi в Казани: MikroTik, Ubiquiti, TP-Link Omada. Покрытие без мёртвых зон, гостевой доступ, безопасность.';
+const title = 'Настройка Wi-Fi в офисе и на складе в Казани | TechSupport';
+const description = 'Проектирование и монтаж корпоративного Wi-Fi в Казани и Татарстане: MikroTik, Ubiquiti, TP-Link Omada, Zyxel. Покрытие без мёртвых зон, гостевой доступ, безопасность.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Организация корпоративного Wi-Fi',
+  provider: { '@type': 'LocalBusiness', name: 'TechSupport', url: 'https://out-techsupport.ru' },
+  areaServed: [
+    { '@type': 'City', name: 'Казань' },
+    { '@type': 'State', name: 'Республика Татарстан' },
+  ],
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} schema={serviceSchema}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Услуги', href: '/#services' }, { label: 'Организация Wi-Fi' }]} />
+  </div>
   <ServiceHero
     title="Организация Wi-Fi"
     lead="Стабильный Wi-Fi для офиса, склада и HoReCa. Проектируем и настраиваем корпоративные беспроводные сети: без обрывов, без мёртвых зон, с разделением на гостевой и рабочий контуры. Работаем с MikroTik, Ubiquiti, TP-Link Omada и Zyxel - подбираем под задачу, а не под вендора."

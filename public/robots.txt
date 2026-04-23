@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /downloads/
+Disallow: /api/
+
+User-agent: Yandex
+Allow: /
+Disallow: /downloads/
+Disallow: /api/
+Host: out-techsupport.ru
+
+Sitemap: https://out-techsupport.ru/sitemap.xml

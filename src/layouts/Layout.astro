@@ -4,12 +4,56 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
+  ogType?: string;
+  schema?: any;
 }
 
+const SITE_URL = 'https://out-techsupport.ru';
+
 const {
-  title = 'TechSupport | IT-аутсорсинг для бизнеса',
-  description = 'Внешний IT-отдел для бизнеса. Абонентское IT-обслуживание: сеть, серверы, 1С, видеонаблюдение, резервное копирование. Удалённо и с выездом, Казань. С 2014 года, 25+ компаний на обслуживании.',
+  title = 'IT-аутсорсинг в Казани и Татарстане | TechSupport - внешний IT-отдел',
+  description = 'Внешний IT-отдел для бизнеса. Абонентское IT-обслуживание: сеть, серверы, 1С, видеонаблюдение, резервное копирование. Казань и Татарстан с выездом, остальная Россия удалённо. С 2014 года, 25+ компаний на обслуживании.',
+  ogImage = '/assets/images/og-default.png',
+  ogType = 'website',
+  schema,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE_URL).href;
+const ogImageAbsolute = new URL(ogImage, SITE_URL).href;
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'TechSupport',
+  alternateName: 'ТехСаппорт',
+  description: 'IT-аутсорсинг и абонентское обслуживание IT-инфраструктуры для бизнеса в Казани и Татарстане',
+  url: SITE_URL,
+  logo: new URL('/assets/images/logo-icon.svg', SITE_URL).href,
+  image: ogImageAbsolute,
+  telephone: '+7-965-609-31-53',
+  email: 'support@out-techsupport.ru',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Казань',
+    addressRegion: 'Республика Татарстан',
+    addressCountry: 'RU',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Казань' },
+    { '@type': 'State', name: 'Республика Татарстан' },
+    { '@type': 'Country', name: 'Россия' },
+  ],
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '19:00',
+  },
+  priceRange: 'от 5 000 ₽/мес',
+  foundingDate: '2014',
+  sameAs: ['https://t.me/outtechsupport'],
+};
 ---
 
 <!doctype html>
@@ -19,8 +63,26 @@ const {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
   <title>{title}</title>
+  <link rel="canonical" href={canonical}>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
+
+  <meta property="og:type" content={ogType}>
+  <meta property="og:url" content={canonical}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={ogImageAbsolute}>
+  <meta property="og:site_name" content="TechSupport">
+  <meta property="og:locale" content="ru_RU">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImageAbsolute}>
+
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)}></script>
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>}
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -78,6 +140,7 @@ const {
       <div class="footer-contacts">
         <a href="tel:+79656093153">+7 (965) 609-31-53</a>
         <a href="mailto:support@out-techsupport.ru">support@out-techsupport.ru</a>
+        <span class="footer-geo">Казань · Татарстан · Россия удалённо</span>
         <a href="/downloads/TechSupport.exe" class="footer-download">Скачать клиент удалённого доступа</a>
         <a href="/privacy" class="footer-privacy">Политика обработки персональных данных</a>
       </div>

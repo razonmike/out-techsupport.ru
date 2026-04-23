@@ -7,6 +7,7 @@ import Process from '../../components/service/Process.astro';
 import FAQ from '../../components/service/FAQ.astro';
 import FinalCTA from '../../components/service/FinalCTA.astro';
 import RelatedServices from '../../components/service/RelatedServices.astro';
+import Breadcrumbs from '../../components/service/Breadcrumbs.astro';
 import Contacts from '../../components/Contacts.astro';
 
 import Database from 'phosphor-astro/Database.astro';
@@ -17,11 +18,25 @@ import ShieldCheck from 'phosphor-astro/ShieldCheck.astro';
 import UserGear from 'phosphor-astro/UserGear.astro';
 import Clock from 'phosphor-astro/Clock.astro';
 
-const title = 'Поддержка 1С: серверы, SQL, бэкапы, удалённый доступ | TechSupport';
-const description = 'Инфраструктурная поддержка 1С: сервер, MS SQL/PostgreSQL, терминальный доступ, резервное копирование, обновления платформы. Не программируем, но отвечаем за стабильность.';
+const title = 'Поддержка и обслуживание 1С в Казани | TechSupport';
+const description = 'Инфраструктурная поддержка 1С в Казани и Татарстане: сервер, MS SQL/PostgreSQL, терминальный доступ, резервное копирование, обновления платформы. Работаем с Бухгалтерией, УТ, ЗУП, ERP. С 2014 года.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Поддержка и обслуживание 1С',
+  provider: { '@type': 'LocalBusiness', name: 'TechSupport', url: 'https://out-techsupport.ru' },
+  areaServed: [
+    { '@type': 'City', name: 'Казань' },
+    { '@type': 'State', name: 'Республика Татарстан' },
+  ],
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} schema={serviceSchema}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Услуги', href: '/#services' }, { label: 'Поддержка 1С' }]} />
+  </div>
   <ServiceHero
     title="Поддержка 1С"
     lead="1С без тормозов, без потери данных и без остановки бухгалтерии. Отвечаем за инфраструктуру 1С: сервер, SQL, резервное копирование, удалённый доступ, обновления платформы. Не программируем конфигурации - занимаемся тем, без чего 1С просто не работает. Работаем с Бухгалтерией, УТ, ЗУП, ERP."

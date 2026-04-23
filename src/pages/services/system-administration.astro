@@ -7,6 +7,7 @@ import Process from '../../components/service/Process.astro';
 import FAQ from '../../components/service/FAQ.astro';
 import FinalCTA from '../../components/service/FinalCTA.astro';
 import RelatedServices from '../../components/service/RelatedServices.astro';
+import Breadcrumbs from '../../components/service/Breadcrumbs.astro';
 import Contacts from '../../components/Contacts.astro';
 
 import ShieldCheck from 'phosphor-astro/ShieldCheck.astro';
@@ -18,11 +19,25 @@ import ShieldWarning from 'phosphor-astro/ShieldWarning.astro';
 import Lightning from 'phosphor-astro/Lightning.astro';
 import ChartLine from 'phosphor-astro/ChartLine.astro';
 
-const title = 'Системное администрирование: Windows, Linux, AD, мониторинг | TechSupport';
-const description = 'Полное сопровождение серверной инфраструктуры: Windows Server, Linux, Active Directory, Zabbix, бэкапы, безопасность. Внешний сисадмин или усиление штатного.';
+const title = 'Системное администрирование в Казани: Windows, Linux, AD | TechSupport';
+const description = 'Сопровождение серверной инфраструктуры в Казани и Татарстане: Windows Server, Linux, Active Directory, мониторинг, бэкапы. Внешний сисадмин или усиление штатного.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Системное администрирование серверной инфраструктуры',
+  provider: { '@type': 'LocalBusiness', name: 'TechSupport', url: 'https://out-techsupport.ru' },
+  areaServed: [
+    { '@type': 'City', name: 'Казань' },
+    { '@type': 'State', name: 'Республика Татарстан' },
+  ],
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} schema={serviceSchema}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Услуги', href: '/#services' }, { label: 'Системное администрирование' }]} />
+  </div>
   <ServiceHero
     title="Системное администрирование"
     lead="Инфраструктура, которая работает без ручной поддержки. Windows Server, Linux, Active Directory, мониторинг, бэкапы, обновления - полное сопровождение серверной инфраструктуры. Заранее предотвращаем сбои, а не разбираемся с последствиями. Подходит компаниям без штатного сисадмина или в дополнение к нему."

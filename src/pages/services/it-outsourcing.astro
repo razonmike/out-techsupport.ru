@@ -7,6 +7,7 @@ import Process from '../../components/service/Process.astro';
 import FAQ from '../../components/service/FAQ.astro';
 import FinalCTA from '../../components/service/FinalCTA.astro';
 import RelatedServices from '../../components/service/RelatedServices.astro';
+import Breadcrumbs from '../../components/service/Breadcrumbs.astro';
 import Contacts from '../../components/Contacts.astro';
 
 import Headphones from 'phosphor-astro/Headphones.astro';
@@ -21,11 +22,25 @@ import WifiHigh from 'phosphor-astro/WifiHigh.astro';
 import HardDrives from 'phosphor-astro/HardDrives.astro';
 import ShieldWarning from 'phosphor-astro/ShieldWarning.astro';
 
-const title = 'IT-аутсорсинг для бизнеса | TechSupport Казань';
-const description = 'Абонентское IT-обслуживание: поддержка пользователей, серверов, сетей, 1С и VPN. Удалённо и с выездом по Казани и региону. С 2014 года.';
+const title = 'IT-аутсорсинг в Казани и Татарстане | TechSupport';
+const description = 'Абонентское IT-обслуживание в Казани и Татарстане: поддержка пользователей, серверов, сетей, 1С и VPN. Удалённо и с выездом, с 2014 года. Первый месяц -20%.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'IT-аутсорсинг и абонентское обслуживание IT-инфраструктуры',
+  provider: { '@type': 'LocalBusiness', name: 'TechSupport', url: 'https://out-techsupport.ru' },
+  areaServed: [
+    { '@type': 'City', name: 'Казань' },
+    { '@type': 'State', name: 'Республика Татарстан' },
+  ],
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} schema={serviceSchema}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Услуги', href: '/#services' }, { label: 'IT-аутсорсинг' }]} />
+  </div>
   <ServiceHero
     title="IT-аутсорсинг"
     lead="Внешний IT-отдел для вашего бизнеса. Берём на себя обслуживание IT-инфраструктуры: рабочие места, серверы, сети, 1С, VPN и резервное копирование. Единая зона ответственности, предсказуемая ежемесячная стоимость, без больничных и отпусков."
