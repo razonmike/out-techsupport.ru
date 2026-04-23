@@ -226,12 +226,14 @@
     cursor: pointer;
     color: var(--muted);
     font-family: inherit;
-    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+    transition: border-color 0.35s ease, color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
     clip-path: polygon(6px 0, 100% 0, 100% 100%, 0 100%, 0 6px);
   }
   .calc-tariff:hover {
     border-color: rgba(74, 239, 121, 0.4);
     color: var(--text);
+    box-shadow: none;
   }
   .calc-tariff.is-active {
     border-color: var(--accent);
