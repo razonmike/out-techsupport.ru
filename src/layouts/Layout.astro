@@ -85,11 +85,26 @@ const localBusinessSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)}></script>
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>}
 
+  <script is:inline>
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(109793288, "init", {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true
+    });
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109793288" style="position:absolute; left:-9999px;" alt=""></div></noscript>
   <a class="skip-link" href="#top">Перейти к содержимому</a>
   <header class="site-header">
     <div class="container nav">
@@ -142,6 +157,7 @@ const localBusinessSchema = {
       <div class="footer-contacts">
         <a href="tel:+79656093153">+7 (965) 609-31-53</a>
         <a href="mailto:support@out-techsupport.ru">support@out-techsupport.ru</a>
+        <a href="https://t.me/outtechsupport" target="_blank" rel="noopener">Telegram: @outtechsupport</a>
         <span class="footer-geo">Казань · Татарстан · Россия удалённо</span>
         <a href="/downloads/TechSupport.exe" class="footer-download">Скачать клиент удалённого доступа</a>
         <a href="/privacy" class="footer-privacy">Политика обработки персональных данных</a>
@@ -240,6 +256,23 @@ const localBusinessSchema = {
 
       window.addEventListener("resize", function () {
         if (window.innerWidth > 980) closeMenu();
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      function goal(id) {
+        if (typeof window.ym === "function") window.ym(109793288, "reachGoal", id);
+      }
+      document.addEventListener("click", function (e) {
+        var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+        if (!a) return;
+        var href = a.getAttribute("href") || "";
+        if (href.indexOf("tel:") === 0) goal("click_phone");
+        else if (href.indexOf("mailto:") === 0) goal("click_email");
+        else if (href.indexOf("t.me/") !== -1) goal("click_telegram");
+        else if (href.indexOf("TechSupport.exe") !== -1) goal("download_client");
       });
     })();
   </script>

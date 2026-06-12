@@ -3,3 +3,10 @@ dist/
 .astro/
 .claude/
 .kilo/
+
+# internal docs / research (not for public repo)
+claude-design.md
+design_audit.md
+seo_audit.md
+files/
+/assets/

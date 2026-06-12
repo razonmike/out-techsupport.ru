@@ -323,6 +323,7 @@ import MapPin from 'phosphor-astro/MapPin.astro';
         try { data = await res.json(); } catch (_) {}
         if (res.ok && data && data.ok) {
           setStatus('ok', 'Спасибо! Заявка принята - ответим в рабочее время.');
+          if (typeof window.ym === 'function') window.ym(109793288, 'reachGoal', 'form_submit');
           form.reset();
         } else if (res.status === 429) {
           setStatus('err', 'Слишком много заявок с вашего IP. Попробуйте через минуту.');
