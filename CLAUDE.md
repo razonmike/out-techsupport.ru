@@ -39,29 +39,27 @@ TechSupport — IT-аутсорсинговая компания из Казан
 
 ---
 
-## Статус рефакторинга главной
+## Статус проекта (актуализировано 2026-06-12)
 
-### Выполнено в коде
-- Миграция с vanilla HTML/CSS/JS на Astro 5 (коммит `58a7ddf`)
-- Удалены unused React-компоненты и figma-источники (коммиты `a86daf1`, `cce885c`)
-- Hero разбит на левую/правую колонки, карточки выравниваются по сетке (`0a5cdd5`, `fa3a3cb`)
-- Секции разбиты на компоненты: [Hero](src/components/Hero.astro), [Services](src/components/Services.astro), [Trust](src/components/Trust.astro), [HowWeWork](src/components/HowWeWork.astro), [Cases](src/components/Cases.astro), [Prices](src/components/Prices.astro), [Calculator](src/components/Calculator.astro), [Contacts](src/components/Contacts.astro)
+### Выполнено
 
-### Регрессии после миграции (нужно починить)
-При переходе на Astro текст был восстановлен из более старых версий и потерял правки Stage 1/2 из [docs/STATUS.md](docs/STATUS.md):
-- **Hero**: вернулись неподтверждённые обещания («сокращаем расходы до 50%», «время реакции от 15 минут»), вернулись промо «25+», «1000+», «10+», «−20%» в [src/components/Hero.astro](src/components/Hero.astro)
-- **Services**: вернулись технические формулировки CCTV, Hyper-V/VMware/Proxmox, «Системное администрирование» в [src/components/Services.astro](src/components/Services.astro)
-- **Trust**: вернулись запрещённые клише («Профессиональная команда», «Безопасность данных») в [src/components/Trust.astro](src/components/Trust.astro)
-- **Meta description** в [src/layouts/Layout.astro:11](src/layouts/Layout.astro#L11): откат к старой технической формулировке
-- **Блок болей** «С какими задачами к нам обращаются» — отсутствует в [src/pages/index.astro](src/pages/index.astro)
+- Миграция с vanilla HTML/CSS/JS на Astro 5 (коммит `58a7ddf`), секции разбиты на компоненты: [Hero](src/components/Hero.astro), [PainPoints](src/components/PainPoints.astro), [Services](src/components/Services.astro), [Trust](src/components/Trust.astro), [HowWeWork](src/components/HowWeWork.astro), [Cases](src/components/Cases.astro), [Prices](src/components/Prices.astro), [Calculator](src/components/Calculator.astro), [Contacts](src/components/Contacts.astro)
+- Все регрессии после миграции закрыты: тексты выровнены по `files/SKILL.md` (коммит `5c36b3c`), блок болей восстановлен, клише убраны
+- **Форма работает**: POST `/api/contact` → Telegram, honeypot, чекбокс согласия на ПДн (коммит `2167894`). Сам обработчик `/api/contact` живёт **вне репозитория** (на LXC 110), в [nginx.conf](nginx.conf) репо его проксирование не отражено
+- Бургер-меню для `<980px` в [Layout.astro](src/layouts/Layout.astro)
+- 9 страниц услуг (`/services/*`) с FAQ, breadcrumbs и перелинковкой; schema: Service (frontmatter страниц), FAQPage (внутри [FAQ.astro](src/components/service/FAQ.astro)), BreadcrumbList (внутри [Breadcrumbs.astro](src/components/service/Breadcrumbs.astro)). 2026-06-12 добавлены `devops`, `software-development`, `ai` (без цен — «оценка после бесплатной консультации»), сетка услуг на главной 3×3
+- Тарифы упрощены, стартовые цены 5/15/30 тыс. (коммит `9b8fa7b`)
+- SEO применён и задеплоен (проверено на проде 2026-06-12): title с гео, уникальные description, OG/Twitter, canonical, LocalBusiness-schema, `public/robots.txt`, `public/sitemap.xml`, верификация Яндекс+Google
+- Страница `/privacy`, animated counters, тёмная тема с тенями карточек
+- **Яндекс.Метрика** (счётчик `109793288`, 2026-06-12): код в [Layout.astro](src/layouts/Layout.astro) (Вебвизор включён), цели-«JavaScript-события»: `click_phone`, `click_email`, `click_telegram`, `form_submit`, `download_client`. Клики ловит делегированный обработчик в Layout, `form_submit` — в [Contacts.astro](src/components/Contacts.astro)
 
-### Не реализовано
-- Блок «Абонентское IT-обслуживание» (п.5 [docs/SITE_PLAN.md](docs/SITE_PLAN.md))
-- Блок «С чего часто начинается работа» (п.6)
-- Финальный CTA как отдельный блок (п.9) — сейчас сливается с Contacts
-- Форма заявки — не отправляет: `type="button"` без обработчика в [src/components/Contacts.astro:23](src/components/Contacts.astro#L23)
-- Мобильная навигация / бургер-меню для `<980px`
-- Упрощённые тарифы на главной (сейчас перегружены «за единицу оборудования» в [src/components/Prices.astro](src/components/Prices.astro))
+### Открытый беклог
+
+- Контроль (с ~20 июня): вернулись ли `/services/virtualization/`, `/services/video-surveillance/` в индекс Яндекса (статус был «Малоценная или маловостребованная»), применился ли регион «Казань», сменился ли статус sitemap в GSC с «Couldn't fetch», пошли ли данные в Метрику
+- Из `design_audit.md` (высокий приоритет): сверка цен тарифы↔калькулятор, proof-элементы/логотипы клиентов под hero, кейсы с цифрами и именами, sticky CTA на мобильной, прогон PageSpeed/Lighthouse
+- Карточки в Яндекс.Справочнике и 2ГИС
+- Решить судьбу untracked-файлов: `seo_audit.md`, `design_audit.md`, `claude-design.md`, `files/`, `assets/images/tg-group-avatar.png` (лежит вне `public/` — в сборку не попадает)
+- Блог (стратегически, по `seo_audit.md` часть 9)
 
 ---
 
@@ -82,7 +80,8 @@ TechSupport — IT-аутсорсинговая компания из Казан
 - «команда профессионалов»
 - «динамично развивающаяся компания»
 - «мы не просто чиним компьютеры»
-- любые неподтверждённые обещания с цифрами («до 40/50%», «99.9%», «200+ клиентов»), если они не согласованы с владельцем бизнеса
+- любые неподтверждённые обещания с цифрами («99.9%», «200+ клиентов»), если они не согласованы с владельцем бизнеса.
+  Согласовано владельцем (июнь 2026): **«до 50%»**, **«−20% первый месяц»**, **«время реакции от 15 минут»**, **«25+ / 1000+ / 10+»** — входят в утверждённые тексты `.claude/skills/copywritting/SKILL.md` (источник истины по копирайтингу)
 
 **Предпочтительные формулировки:**
 - «внешний IT-отдел»
