@@ -8,12 +8,15 @@ interface Props {
 const { currentSlug } = Astro.props;
 
 const all = [
-  { slug: 'it-outsourcing', title: 'IT-аутсорсинг', desc: 'Комплексное сопровождение IT под ключ.' },
+  { slug: 'it-outsourcing', title: 'IT-аутсорсинг', desc: 'Внешний IT-отдел: абонентское сопровождение всей инфраструктуры.' },
   { slug: 'wifi', title: 'Организация Wi-Fi', desc: 'Стабильный корпоративный Wi-Fi без мёртвых зон.' },
   { slug: 'video-surveillance', title: 'Видеонаблюдение и СКУД', desc: 'Безопасность объектов и контроль доступа.' },
   { slug: '1c', title: 'Поддержка 1С', desc: 'Развёртывание, оптимизация, бэкапы и поддержка.' },
   { slug: 'virtualization', title: 'Виртуализация', desc: 'Hyper-V, VMware, Proxmox - оптимизация серверов.' },
   { slug: 'system-administration', title: 'Системное администрирование', desc: 'Мониторинг, обновления, безопасность, инциденты.' },
+  { slug: 'devops', title: 'DevOps', desc: 'Автоматизация выпуска и эксплуатации сервисов.' },
+  { slug: 'software-development', title: 'Разработка ПО', desc: 'Интеграции, боты, веб-приложения под задачи бизнеса.' },
+  { slug: 'ai', title: 'Внедрение AI', desc: 'Ассистенты, обработка документов, AI-агенты в процессах.' },
 ];
 
 const related = all.filter((s) => s.slug !== currentSlug).slice(0, 3);
@@ -24,7 +27,7 @@ const related = all.filter((s) => s.slug !== currentSlug).slice(0, 3);
     <h2>Другие услуги</h2>
     <div class="related-grid">
       {related.map((s) => (
-        <a class="card related-card reveal" href={`/services/${s.slug}`}>
+        <a class="card related-card reveal" href={`/services/${s.slug}/`}>
           <h3>{s.title}</h3>
           <p>{s.desc}</p>
           <span class="related-link">Перейти <ArrowRight width={14} height={14} /></span>
