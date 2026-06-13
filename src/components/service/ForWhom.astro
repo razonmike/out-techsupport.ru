@@ -35,9 +35,8 @@ const { heading = 'Для кого эта услуга', intro, scenarios } = As
   .for-whom-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2px;
-    background: var(--stroke);
-    border: 1px solid var(--stroke);
+    border-top: 1px solid var(--stroke);
+    border-left: 1px solid var(--stroke);
   }
   .for-whom-item {
     background: var(--bg);
@@ -46,6 +45,8 @@ const { heading = 'Для кого эта услуга', intro, scenarios } = As
     grid-template-columns: 72px 1fr;
     gap: 20px;
     align-items: start;
+    border-right: 1px solid var(--stroke);
+    border-bottom: 1px solid var(--stroke);
   }
   .for-whom-number {
     font-family: "Space Mono", monospace;
