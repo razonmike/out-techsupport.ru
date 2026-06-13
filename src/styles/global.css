@@ -126,9 +126,8 @@ a {
 
 .brand-icon {
   filter:
-    drop-shadow(0 0 8px rgba(220, 237, 255, 0.55))
-    drop-shadow(0 0 18px rgba(170, 210, 255, 0.4))
-    drop-shadow(0 0 32px rgba(116, 175, 255, 0.25));
+    drop-shadow(0 0 6px rgba(220, 237, 255, 0.35))
+    drop-shadow(0 0 14px rgba(170, 210, 255, 0.22));
 }
 
 .brand-copy {
@@ -534,6 +533,15 @@ h3 {
   margin: 0 0 14px;
   letter-spacing: -0.03em;
   font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+.hero-title-main,
+.hero-title-accent,
+.hero-block-title {
+  font-family: "Onest", "Geist", sans-serif;
 }
 
 h1 {
