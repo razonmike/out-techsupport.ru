@@ -559,7 +559,7 @@ h2 {
   color: var(--muted);
   font-weight: 300;
   margin: -8px 0 22px;
-  max-width: 68ch;
+  max-width: 100%;
 }
 
 h3 {
@@ -571,7 +571,7 @@ h3 {
   color: var(--muted);
   font-size: 1.1rem;
   margin: 0 0 24px;
-  max-width: 62ch;
+  max-width: 100%;
 }
 
 .cards {
