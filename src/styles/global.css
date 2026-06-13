@@ -197,8 +197,8 @@ a {
 
 .nav-burger {
   display: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   margin: 0;
   border: 1px solid var(--stroke);
@@ -396,7 +396,7 @@ body.nav-lock {
 .hero-feature-desc {
   font-size: 0.78rem;
   color: var(--muted);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.35;
 }
 
@@ -463,20 +463,18 @@ body.nav-lock {
 
 .hero-stat {
   background: rgba(26, 48, 58, 0.5);
-  border: 1px solid var(--stroke);
+  border: 1px solid transparent;
   border-radius: 2px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
-  transition: border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+  transition: border-color 0.35s ease, background 0.35s ease;
 }
 
 .hero-stat:hover {
   border-color: rgba(74, 239, 121, 0.3);
   background: rgba(74, 239, 121, 0.04);
-  box-shadow: none;
 }
 
 .hero-stat strong {
@@ -546,14 +544,14 @@ h2 {
   font-size: clamp(1.6rem, 3vw, 2.7rem);
   margin-bottom: 26px;
   text-transform: uppercase;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.01em;
 }
 
 .section-intro {
   color: var(--muted);
   font-weight: 300;
   margin: -8px 0 22px;
-  max-width: 100%;
+  max-width: 68ch;
 }
 
 h3 {
@@ -565,7 +563,7 @@ h3 {
   color: var(--muted);
   font-size: 1.1rem;
   margin: 0 0 24px;
-  max-width: 100%;
+  max-width: 62ch;
 }
 
 .cards {
@@ -935,8 +933,8 @@ h3 {
 
 .calc-btn-minus,
 .calc-btn-plus {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--accent);
   border-radius: 0;
   background: transparent;
